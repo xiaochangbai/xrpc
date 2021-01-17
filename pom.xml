@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>xyz.javaboy</groupId>
+    <artifactId>rpc-demo</artifactId>
+    <version>${simple.rpc.versin}</version>
+    <modules>
+        <module>simple-rpc</module>
+        <module>server-exmple</module>
+        <module>common-api</module>
+        <module>client-exmple</module>
+    </modules>
+    <packaging>pom</packaging>
+
+
+    <properties>
+        <netty.version>4.1.48.Final</netty.version>
+        <lombok.version>1.18.12</lombok.version>
+        <hutool.version>5.5.2</hutool.version>
+        <curator.version>4.2.0</curator.version>
+        <kryo.version>4.0.0</kryo.version>
+        <logback.version>1.2.3</logback.version>
+        <simple.rpc.versin>1.0-SNAPSHOT</simple.rpc.versin>
+    </properties>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.esotericsoftware</groupId>
+                <artifactId>kryo-shaded</artifactId>
+                <version>${kryo.version}</version>
+            </dependency>
+
+
+            <!--utils-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.10</version>
+            </dependency>
+
+            <!--loggers-->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <artifactId>common-api</artifactId>
+                <groupId>xyz.javaboy</groupId>
+                <version>${simple.rpc.versin}</version>
+            </dependency>
+
+            <dependency>
+                <artifactId>simple-rpc</artifactId>
+                <groupId>xyz.javaboy</groupId>
+                <version>${simple.rpc.versin}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+</project>

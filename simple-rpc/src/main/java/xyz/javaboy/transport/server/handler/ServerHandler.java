@@ -33,9 +33,9 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     private Object assembleResult(RpcRequest request) {
         try {
             ServerRegister serverRegister = SingleFactory.getInstance(LocalServerRegister.class);
-            Class<?> server = serverRegister.findServer(request.getServerName());
+            Class<?> server = serverRegister.findServer(request.serverName());
             if(server==null){
-                log.error("没有发现对应的服务: {}",request.getServerName());
+                log.error("没有发现对应的服务: {}",request.serverName());
                 return null;
             }
 

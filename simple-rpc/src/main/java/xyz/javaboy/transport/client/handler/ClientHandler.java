@@ -14,13 +14,6 @@ import xyz.javaboy.util.UnProcessRequest;
 public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-//        Request request = new Request(IdUtil.simpleUUID(),"student","list",
-//                new Class[0],new Object[0],1,"demo");
-//        ctx.channel().writeAndFlush(request);
-    }
-
-    @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if(msg instanceof RpcResponse){
             RpcResponse response = RpcResponse.class.cast(msg);

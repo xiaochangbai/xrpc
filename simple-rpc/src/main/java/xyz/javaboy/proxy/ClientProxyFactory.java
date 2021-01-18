@@ -31,16 +31,17 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class ClientProxyFactory implements InvocationHandler {
 
+    //代理接口
     private ServerParam serverParam;
-
 
     public ClientProxyFactory(){
     }
     
-    public <T> T newProxyInstance(Class<T> tClass){
-        this.serverParam = ServerParam.builder().name(tClass.getCanonicalName()).build();
-        Object obj = Proxy.newProxyInstance(tClass.getClassLoader(),new Class[]{tClass}, this);
-        return tClass.cast(obj);
+    public <T> T newProxyInstance(ServerParam<T> serverParam){
+        this.serverParam = serverParam;
+        Object obj = Proxy.newProxyInstance(this.serverParam.getInterfaceClass().getClassLoader()
+                ,new Class[]{this.serverParam.getInterfaceClass()}, this);
+        return serverParam.getInterfaceClass().cast(obj);
     } 
 
     @Override
@@ -52,8 +53,9 @@ public class ClientProxyFactory implements InvocationHandler {
                 .methodName(method.getName())
                 .params(args)
                 .id(IdUtil.simpleUUID())
+                .interfaceClass(serverParam.getInterfaceClass())
                 .paramTypes(method.getParameterTypes())
-                .serverName(serverParam.getName()).build();
+                .build();
 
         ClientBooter clientBooter = SingleFactory.getInstance(ClientBooter.class);
 

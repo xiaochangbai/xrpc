@@ -15,8 +15,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RpcResponse<T> {
 
+    //响应id
     private String id;
 
+    //响应数据
     private T data;
 
 }

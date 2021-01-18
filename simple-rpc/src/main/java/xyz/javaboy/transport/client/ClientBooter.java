@@ -2,7 +2,6 @@ package xyz.javaboy.transport.client;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -15,9 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import xyz.javaboy.common.RpcRequest;
 import xyz.javaboy.common.RpcResponse;
 import xyz.javaboy.transport.client.handler.ClientHandler;
-import xyz.javaboy.transport.codec.MyCustomDecode;
-import xyz.javaboy.transport.codec.MyCustomEncode;
-import xyz.javaboy.util.AppConst;
+import xyz.javaboy.transport.codec.RpcCustomDecode;
+import xyz.javaboy.transport.codec.RpcCustomEncode;
 
 import java.net.InetSocketAddress;
 
@@ -42,8 +40,8 @@ public class ClientBooter {
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         ChannelPipeline pipeline = socketChannel.pipeline();
-                        pipeline.addLast(new MyCustomEncode(RpcRequest.class))
-                                .addLast(new MyCustomDecode(RpcResponse.class))
+                        pipeline.addLast(new RpcCustomEncode(RpcRequest.class))
+                                .addLast(new RpcCustomDecode(RpcResponse.class))
                                 .addLast(new ClientHandler());
                     }
                 });

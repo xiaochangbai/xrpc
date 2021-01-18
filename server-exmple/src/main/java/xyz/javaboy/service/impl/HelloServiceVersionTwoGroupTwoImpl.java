@@ -8,10 +8,10 @@ import xyz.javaboy.service.HelloService;
  * @date 2021/1/17
  * @description Good Good Study,Day Day Up.
  */
-public class HelloServiceImpl implements HelloService {
+public class HelloServiceVersionTwoGroupTwoImpl implements HelloService {
 
     @Override
     public String hello(String name) {
-        return "【default】Hi "+name+" welcome!";
+        return "【版本二、组二】Hi "+name+" welcome!";
     }
 }

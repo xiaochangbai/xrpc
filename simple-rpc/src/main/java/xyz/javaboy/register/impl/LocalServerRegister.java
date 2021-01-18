@@ -4,6 +4,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import lombok.extern.slf4j.Slf4j;
 import xyz.javaboy.common.ServerParam;
 import xyz.javaboy.register.ServerRegister;
 
@@ -19,6 +20,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2021/1/15
  * @description Good Good Study,Day Day Up.
  */
+@Slf4j
 public class LocalServerRegister implements ServerRegister {
 
     private Cache<String,ServerParam> cache;
@@ -32,26 +34,9 @@ public class LocalServerRegister implements ServerRegister {
     }
 
     @Override
-    public void register(String serverName, Class<?> aClass) {
-        ServerParam serverParam = null;
-        try {
-            serverParam = ServerParam.builder().name(serverName)
-                    .group("demo")
-                    .version("1.0")
-                    .ip(InetAddress.getLocalHost().getHostAddress())
-                    .serverImplClass(aClass).build();
-            cache.put(serverName, serverParam);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public void register(Class<?> aClassInterface, Class<?> aClass) {
-        String serverName = aClassInterface.getCanonicalName();
-        this.register(serverName, aClass);
-
+    public void register(ServerParam serverParam) {
+        cache.put(serverParam.serverName(), serverParam);
+        log.debug("服务注册：[{}]",serverParam.serverName());
     }
 
     @Override
@@ -60,6 +45,6 @@ public class LocalServerRegister implements ServerRegister {
         if(serverParam==null){
             return null;
         }
-        return serverParam.getServerImplClass();
+        return serverParam.getImplClass();
     }
 }

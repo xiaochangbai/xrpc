@@ -10,11 +10,11 @@ import io.netty.handler.codec.MessageToByteEncoder;
  * @date 2021/1/10
  * @description 自定义编码器.
  */
-public class MyCustomEncode extends MessageToByteEncoder {
+public class RpcCustomEncode extends MessageToByteEncoder {
 
     private Class aClass;
 
-    public MyCustomEncode(Class aClass){
+    public RpcCustomEncode(Class aClass){
         this.aClass = aClass;
     }
 

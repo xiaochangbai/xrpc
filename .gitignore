@@ -10,3 +10,27 @@
 .classpath
 .project
 .DS_Store
+
+
+# maven ignore
+target/
+logs/
+
+# eclipse ignore
+.settings/
+
+
+# idea ignore
+.idea/
+*.ipr
+*.iml
+*.iws
+
+# temp ignore
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp
+
+*.logs

@@ -1,5 +1,7 @@
 package xyz.javaboy.register;
 
+import xyz.javaboy.common.ServerParam;
+
 import java.net.UnknownHostException;
 
 /**
@@ -11,9 +13,8 @@ import java.net.UnknownHostException;
 public interface ServerRegister {
 
 
-    void register(String serverName, Class<?> aClass) ;
-
-    void register(Class<?> aClassInterface, Class<?> aClass);
+    void register(ServerParam serverParam) ;
 
     Class<?> findServer(String serverName);
+
 }

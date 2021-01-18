@@ -1,17 +1,18 @@
 package xyz.javaboy.transport.server;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
 import xyz.javaboy.common.RpcRequest;
 import xyz.javaboy.common.RpcResponse;
-import xyz.javaboy.transport.codec.MyCustomDecode;
-import xyz.javaboy.transport.codec.MyCustomEncode;
+import xyz.javaboy.transport.codec.RpcCustomDecode;
+import xyz.javaboy.transport.codec.RpcCustomEncode;
 import xyz.javaboy.transport.server.handler.ServerHandler;
 import xyz.javaboy.util.AppConst;
 
@@ -34,13 +35,13 @@ public class ServerBooter {
         bootstrap = new ServerBootstrap();
         bootstrap.group(bossGroups, workerGroups)
                 .channel(NioServerSocketChannel.class)
+                .handler(new LoggingHandler(LogLevel.INFO))
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         ChannelPipeline pipeline = socketChannel.pipeline();
-
-                        pipeline.addLast(new MyCustomEncode(RpcResponse.class))
-                                .addLast(new MyCustomDecode(RpcRequest.class))
+                        pipeline.addLast(new RpcCustomEncode(RpcResponse.class))
+                                .addLast(new RpcCustomDecode(RpcRequest.class))
                                 .addLast(new ServerHandler());
                     }
                 });

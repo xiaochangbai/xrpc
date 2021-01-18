@@ -12,13 +12,13 @@ import java.util.List;
  * @date 2021/1/10
  * @description Good Good Study,Day Day Up.
  */
-public class MyCustomDecode extends ByteToMessageDecoder {
+public class RpcCustomDecode extends ByteToMessageDecoder {
 
 
     private Class aClass;
 
 
-    public MyCustomDecode(Class aClass){
+    public RpcCustomDecode(Class aClass){
         this.aClass = aClass;
     }
 

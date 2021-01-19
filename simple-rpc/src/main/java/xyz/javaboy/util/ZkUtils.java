@@ -22,6 +22,8 @@ public class ZkUtils {
 
     private CuratorFramework client;
 
+
+
     public ZkUtils() throws Exception {
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
         this.client = CuratorFrameworkFactory.newClient(AppConst.ZK_CONNECTION_INFO, retryPolicy);
@@ -56,6 +58,12 @@ public class ZkUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void main(String[] args) throws Exception {
+        ZkUtils zkUtils = new ZkUtils();
+
+        zkUtils.registerServer("13241", "1234");
     }
 
 }

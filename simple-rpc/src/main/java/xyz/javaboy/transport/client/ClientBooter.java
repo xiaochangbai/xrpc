@@ -1,14 +1,17 @@
 package xyz.javaboy.transport.client;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
 
 import xyz.javaboy.common.RpcRequest;
@@ -18,6 +21,9 @@ import xyz.javaboy.transport.codec.RpcCustomDecode;
 import xyz.javaboy.transport.codec.RpcCustomEncode;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.TimeUnit;
+
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 /**
  * @author XDD
@@ -34,15 +40,20 @@ public class ClientBooter {
     public ClientBooter(){
         bootstrap = new Bootstrap();
         bootstrap.group(workerGroups)
+                .option(ChannelOption.SO_KEEPALIVE, true)
+                .option(ChannelOption.TCP_NODELAY, true)
+                .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS,5000)
                 .channel(NioSocketChannel.class)
                 .handler(new LoggingHandler(LogLevel.INFO))
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         ChannelPipeline pipeline = socketChannel.pipeline();
-                        pipeline.addLast(new RpcCustomEncode(RpcRequest.class))
-                                .addLast(new RpcCustomDecode(RpcResponse.class))
-                                .addLast(new ClientHandler());
+                        pipeline.addLast("encode",new RpcCustomEncode(RpcRequest.class))
+                                .addLast("decode",new RpcCustomDecode(RpcResponse.class))
+                                .addLast("client-idle-handler", new IdleStateHandler(30, 0, 0, TimeUnit.SECONDS))
+                                .addLast("handler",new ClientHandler());
                     }
                 });
         log.info("客户端连接成功");

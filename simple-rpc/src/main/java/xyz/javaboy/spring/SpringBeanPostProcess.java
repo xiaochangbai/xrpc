@@ -6,6 +6,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
 import xyz.javaboy.common.ServerParam;
+import xyz.javaboy.extension.ExtensionLoader;
 import xyz.javaboy.proxy.ClientProxyFactory;
 import xyz.javaboy.register.ServerRegister;
 import xyz.javaboy.register.annotation.RpcReference;
@@ -27,9 +28,16 @@ import java.lang.reflect.Field;
 public class SpringBeanPostProcess implements BeanPostProcessor {
 
 
-    private ServerRegister serverRegister = SingleFactory.getInstance(LocalServerRegister.class);
+    private ServerRegister serverRegister;
 
     private ClientProxyFactory proxyFactory = SingleFactory.getInstance(ClientProxyFactory.class);
+
+
+    public SpringBeanPostProcess(){
+        super();
+        Class<ServerRegister> local = ExtensionLoader.get(ServerRegister.class, "local");
+        serverRegister = SingleFactory.getInstance(local);
+    }
 
 
     /**

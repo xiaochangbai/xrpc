@@ -4,6 +4,7 @@ import io.netty.channel.*;
 import lombok.extern.slf4j.Slf4j;
 import xyz.javaboy.common.RpcRequest;
 import xyz.javaboy.common.RpcResponse;
+import xyz.javaboy.extension.ExtensionLoader;
 import xyz.javaboy.register.ServerRegister;
 import xyz.javaboy.register.impl.LocalServerRegister;
 import xyz.javaboy.util.SingleFactory;
@@ -32,7 +33,8 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     private Object assembleResult(RpcRequest request) {
         try {
-            ServerRegister serverRegister = SingleFactory.getInstance(LocalServerRegister.class);
+            Class<ServerRegister> local = ExtensionLoader.get(ServerRegister.class, "local");
+            ServerRegister serverRegister = SingleFactory.getInstance(local);
             Class<?> server = serverRegister.findServer(request.serverName());
             if(server==null){
                 log.error("没有发现对应的服务: {}",request.serverName());

@@ -1,6 +1,7 @@
 package xyz.javaboy.register;
 
 import xyz.javaboy.common.ServerParam;
+import xyz.javaboy.extension.SPI;
 
 import java.net.UnknownHostException;
 
@@ -10,6 +11,7 @@ import java.net.UnknownHostException;
  * @date 2021/1/15
  * @description Good Good Study,Day Day Up.
  */
+@SPI
 public interface ServerRegister {
 
 

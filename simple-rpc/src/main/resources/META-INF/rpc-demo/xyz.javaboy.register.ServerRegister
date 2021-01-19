@@ -1,0 +1,2 @@
+#server register and discover
+local=xyz.javaboy.register.impl.LocalServerRegister

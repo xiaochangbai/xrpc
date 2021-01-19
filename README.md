@@ -1,6 +1,6 @@
-<h2>RPC(Remote Procedure Call)学习实战项目</h2>
+<h2>RPC(Remote Procedure Call)实战</h2>
 <h2>@desc: 仅用于个人学习、了解RPC</h2>
-<h2>@date: 2021/01/11 周一</h2>
+<h2>@date: 2021/01/16</h2>
 <hr/><br/>
 
 <h3><b>技术组成：</b></h3>

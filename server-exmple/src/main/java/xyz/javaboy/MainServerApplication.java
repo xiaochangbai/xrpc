@@ -1,18 +1,13 @@
 package xyz.javaboy;
 
 import lombok.extern.slf4j.Slf4j;
-import xyz.javaboy.common.ServerParam;
-import xyz.javaboy.register.ServerRegister;
-import xyz.javaboy.register.impl.LocalServerRegister;
-import xyz.javaboy.service.HelloService;
-import xyz.javaboy.service.UserService;
-import xyz.javaboy.service.impl.HelloServiceImpl;
-import xyz.javaboy.service.impl.HelloServiceVersionOneGroupOneImpl;
-import xyz.javaboy.service.impl.HelloServiceVersionTwoGroupTwoImpl;
-import xyz.javaboy.service.impl.UserServiceImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import xyz.javaboy.register.annotation.RpcScan;
+import xyz.javaboy.service.HelloServiceImpl;
+import xyz.javaboy.service.test.TestServcie;
 import xyz.javaboy.transport.server.ServerBooter;
 import xyz.javaboy.util.AppConst;
-import xyz.javaboy.util.SingleFactory;
 
 
 /**
@@ -22,19 +17,16 @@ import xyz.javaboy.util.SingleFactory;
  * @description Good Good Study,Day Day Up.
  */
 @Slf4j
+@RpcScan(basePackage = {"xyz.javaboy.service"})
 public class MainServerApplication {
 
     public static void main(String[] args) throws InterruptedException {
-        //启动服务
+        //启动netty服务
         new ServerBooter().start(AppConst.SERVER_PORT);
 
-        //服务注册
-        ServerRegister register = SingleFactory.getInstance(LocalServerRegister.class);
-        register.register(ServerParam.buildDefaultServer(HelloService.class, HelloServiceImpl.class));
-        register.register(ServerParam.buildServer(HelloService.class, HelloServiceVersionOneGroupOneImpl.class,"1.0","1"));
-        register.register(ServerParam.buildServer(HelloService.class, HelloServiceVersionTwoGroupTwoImpl.class,"2.0","2"));
-        register.register(ServerParam.buildDefaultServer(UserService.class, UserServiceImpl.class));
-        log.info("服务注册完成");
+        //加载spring容器
+        ApplicationContext applicationContext =
+                new AnnotationConfigApplicationContext(MainServerApplication.class);
     }
 
 }

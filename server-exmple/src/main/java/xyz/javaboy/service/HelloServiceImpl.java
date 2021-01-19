@@ -1,6 +1,8 @@
-package xyz.javaboy.service.impl;
+package xyz.javaboy.service;
 
-import xyz.javaboy.service.HelloService;
+import org.springframework.stereotype.Service;
+import xyz.javaboy.controller.HelloService;
+import xyz.javaboy.register.annotation.RpcService;
 
 /**
  * @author XDD
@@ -8,6 +10,7 @@ import xyz.javaboy.service.HelloService;
  * @date 2021/1/17
  * @description Good Good Study,Day Day Up.
  */
+@RpcService
 public class HelloServiceImpl implements HelloService {
 
     @Override

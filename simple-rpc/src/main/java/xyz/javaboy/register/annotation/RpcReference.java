@@ -9,12 +9,12 @@ import java.lang.annotation.*;
  * @description Good Good Study,Day Day Up.
  */
 
-@Target({ElementType.TYPE})
+@Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface MyReference {
+public @interface RpcReference {
 
-    String goup() default "";
+    String group() default "";
 
     String version() default "";
 

@@ -1,7 +1,13 @@
 package xyz.javaboy.util;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.task.AsyncTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author XDD
@@ -19,11 +25,8 @@ public class AppConst {
     public static String SERVER_IP = null;
 
     static {
-        try {
-            SERVER_IP = InetAddress.getLocalHost().getHostName();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
+        SERVER_IP = IpUtils.localIP();
     }
+
 
 }

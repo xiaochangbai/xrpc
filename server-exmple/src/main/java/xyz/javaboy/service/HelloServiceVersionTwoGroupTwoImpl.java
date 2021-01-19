@@ -1,6 +1,7 @@
-package xyz.javaboy.service.impl;
+package xyz.javaboy.service;
 
-import xyz.javaboy.service.HelloService;
+import xyz.javaboy.controller.HelloService;
+import xyz.javaboy.register.annotation.RpcService;
 
 /**
  * @author XDD
@@ -8,6 +9,7 @@ import xyz.javaboy.service.HelloService;
  * @date 2021/1/17
  * @description Good Good Study,Day Day Up.
  */
+@RpcService(group = "2",version = "2.0")
 public class HelloServiceVersionTwoGroupTwoImpl implements HelloService {
 
     @Override

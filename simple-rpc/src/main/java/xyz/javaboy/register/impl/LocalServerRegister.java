@@ -36,7 +36,6 @@ public class LocalServerRegister implements ServerRegister {
     @Override
     public void register(ServerParam serverParam) {
         cache.put(serverParam.serverName(), serverParam);
-        log.debug("服务注册：[{}]",serverParam.serverName());
     }
 
     @Override

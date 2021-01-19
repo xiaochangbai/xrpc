@@ -1,8 +1,9 @@
-package xyz.javaboy.service.impl;
+package xyz.javaboy.service;
 
 import cn.hutool.core.lang.Assert;
 import xyz.javaboy.entity.User;
-import xyz.javaboy.service.UserService;
+import xyz.javaboy.controller.UserService;
+import xyz.javaboy.register.annotation.RpcService;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2021/1/17
  * @description Good Good Study,Day Day Up.
  */
+@RpcService
 public class UserServiceImpl implements UserService {
 
     private static final Map<String,User> MAPS = new ConcurrentHashMap<>(5);

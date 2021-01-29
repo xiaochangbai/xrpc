@@ -35,7 +35,7 @@ public class SpringBeanPostProcess implements BeanPostProcessor {
 
     public SpringBeanPostProcess(){
         super();
-        Class<ServerRegister> local = ExtensionLoader.get(ServerRegister.class, "local");
+        Class<ServerRegister> local = ExtensionLoader.get(ServerRegister.class, "zk");
         serverRegister = SingleFactory.getInstance(local);
     }
 
@@ -55,8 +55,11 @@ public class SpringBeanPostProcess implements BeanPostProcessor {
             Class<?> interfaceClass = bean.getClass().getInterfaces()[0];
             ServerParam serverParam = ServerParam
                     .buildServer(interfaceClass,bean.getClass(),rpcService.version(),rpcService.group());
-            serverRegister.register(serverParam);
-            log.debug("服务注册完成[{}] - [{}]",serverParam.serverName(),bean.getClass().getSimpleName());
+            if(serverRegister.register(serverParam)){
+                log.debug("服务注册成功[{}]",serverParam.serverName());
+            }else{
+                log.error("服务注册失败[{}]",serverParam.serverName());
+            }
         }
         return bean;
     }

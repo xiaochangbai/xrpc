@@ -4,6 +4,9 @@ import lombok.Builder;
 import lombok.Data;
 import xyz.javaboy.util.IpUtils;
 
+import java.io.Serializable;
+
+
 /**
  * @author XDD
  * @project rpc-demo
@@ -12,7 +15,12 @@ import xyz.javaboy.util.IpUtils;
  */
 @Data
 @Builder
-public class ServerParam<T> {
+public class ServerParam<T> implements Serializable {
+
+
+    private final static Long serialVersionUID = 1L;
+
+
 
     //服务版本
     private String version;
@@ -34,7 +42,7 @@ public class ServerParam<T> {
      * @return
      */
     public String serverName(){
-        return buildServerName(interfaceClass, this.version, this.getGroup());
+        return ServerParam.buildServerName(this.interfaceClass, this.version, this.group);
     }
 
 
@@ -56,6 +64,7 @@ public class ServerParam<T> {
     }
 
 
+
     /**
      * 构建服务名称
      * @param aClass 服务接口Class对象
@@ -66,5 +75,7 @@ public class ServerParam<T> {
     public static String buildServerName(Class<?> aClass,String version,String group){
         return aClass.getCanonicalName()+":"+version+":"+group;
     }
+
+
 
 }

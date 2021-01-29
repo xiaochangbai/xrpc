@@ -1,7 +1,6 @@
 package xyz.javaboy.service;
 
-import org.springframework.stereotype.Service;
-import xyz.javaboy.controller.HelloService;
+import xyz.javaboy.api.HelloService;
 import xyz.javaboy.register.annotation.RpcService;
 
 /**
@@ -15,6 +14,7 @@ public class HelloServiceImpl implements HelloService {
 
     @Override
     public String hello(String name) {
-        return "【default】Hi "+name+" welcome!";
+        return this.getClass().getCanonicalName();
     }
+
 }

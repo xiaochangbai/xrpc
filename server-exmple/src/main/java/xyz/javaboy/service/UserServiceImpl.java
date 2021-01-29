@@ -2,7 +2,7 @@ package xyz.javaboy.service;
 
 import cn.hutool.core.lang.Assert;
 import xyz.javaboy.entity.User;
-import xyz.javaboy.controller.UserService;
+import xyz.javaboy.api.UserService;
 import xyz.javaboy.register.annotation.RpcService;
 
 import java.util.Map;

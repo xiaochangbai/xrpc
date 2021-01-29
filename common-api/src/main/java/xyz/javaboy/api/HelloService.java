@@ -1,4 +1,4 @@
-package xyz.javaboy.controller;
+package xyz.javaboy.api;
 
 /**
  * @author XDD

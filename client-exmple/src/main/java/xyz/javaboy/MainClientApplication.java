@@ -2,8 +2,7 @@ package xyz.javaboy;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
-import xyz.javaboy.controller.HelloController;
+import xyz.javaboy.api.HelloController;
 import xyz.javaboy.register.annotation.RpcScan;
 
 
@@ -19,6 +18,9 @@ public class MainClientApplication {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainClientApplication.class);
         HelloController helloController = applicationContext.getBean(HelloController.class);
+        System.out.println(helloController.hello("xchb"));
+        System.out.println(helloController.hello("xchb"));
+        System.out.println(helloController.hello("xchb"));
         System.out.println(helloController.hello("xchb"));
         System.out.println(helloController.hello2("xchb"));
     }

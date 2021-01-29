@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author XDD
  * @project rpc-demo
  * @date 2021/1/15
- * @description Good Good Study,Day Day Up.
+ * @description 未处理的请求处理器.
  */
 public class UnProcessRequest {
 

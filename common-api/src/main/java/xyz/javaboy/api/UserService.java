@@ -1,4 +1,4 @@
-package xyz.javaboy.controller;
+package xyz.javaboy.api;
 
 import xyz.javaboy.entity.User;
 

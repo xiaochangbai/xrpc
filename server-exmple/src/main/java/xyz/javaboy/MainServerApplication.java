@@ -4,8 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import xyz.javaboy.register.annotation.RpcScan;
-import xyz.javaboy.service.HelloServiceImpl;
-import xyz.javaboy.service.test.TestServcie;
 import xyz.javaboy.transport.server.ServerBooter;
 import xyz.javaboy.util.AppConst;
 

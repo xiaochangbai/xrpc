@@ -1,4 +1,6 @@
-package xyz.javaboy.loadbalance;
+package xyz.javaboy.loadbalance.impl;
+
+import xyz.javaboy.loadbalance.LoadBalance;
 
 import java.util.List;
 import java.util.Random;
@@ -18,21 +20,16 @@ public class RandomLoadBalance implements LoadBalance {
     }
 
     @Override
-    public Class<?> load(List<Class<?>> serverClass) {
-        if(serverClass==null){
+    public <T> T load(List<T> objs) {
+        if(objs==null){
             return null;
         }
-        return serverClass.get(generatorIndex(serverClass.size()));
+        return objs.get(generatorIndex(objs.size()));
     }
 
     private int generatorIndex(int size) {
         return random.nextInt(size);
     }
 
-    public static void main(String[] args) {
-        RandomLoadBalance randomLoadBalance = new RandomLoadBalance();
-        for (int i=0;i<20;i++){
-            System.out.println(randomLoadBalance.generatorIndex(6));
-        }
-    }
+
 }

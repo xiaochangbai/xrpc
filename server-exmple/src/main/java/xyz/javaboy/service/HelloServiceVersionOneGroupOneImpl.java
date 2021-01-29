@@ -1,6 +1,6 @@
 package xyz.javaboy.service;
 
-import xyz.javaboy.controller.HelloService;
+import xyz.javaboy.api.HelloService;
 import xyz.javaboy.register.annotation.RpcService;
 
 /**
@@ -14,6 +14,6 @@ public class HelloServiceVersionOneGroupOneImpl implements HelloService {
 
     @Override
     public String hello(String name) {
-        return "【版本一、组一】Hi "+name+" welcome!";
+        return this.getClass().getCanonicalName();
     }
 }

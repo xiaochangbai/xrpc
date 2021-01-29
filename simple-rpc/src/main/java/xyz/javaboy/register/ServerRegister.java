@@ -3,7 +3,9 @@ package xyz.javaboy.register;
 import xyz.javaboy.common.ServerParam;
 import xyz.javaboy.extension.SPI;
 
+import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.List;
 
 /**
  * @author XDD
@@ -15,8 +17,18 @@ import java.net.UnknownHostException;
 public interface ServerRegister {
 
 
-    void register(ServerParam serverParam) ;
+    /**
+     * 服务注册
+     * @param serverParam
+     * @return
+     */
+    boolean register(ServerParam serverParam) ;
 
-    Class<?> findServer(String serverName);
+    /**
+     * 服务发现
+     * @param serverName
+     * @return
+     */
+    List<ServerParam> find(String serverName);
 
 }

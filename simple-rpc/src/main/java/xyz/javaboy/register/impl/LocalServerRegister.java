@@ -7,6 +7,7 @@ import xyz.javaboy.common.ServerParam;
 import xyz.javaboy.register.ServerRegister;
 
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -29,16 +30,22 @@ public class LocalServerRegister implements ServerRegister {
     }
 
     @Override
-    public void register(ServerParam serverParam) {
+    public boolean register(ServerParam serverParam) {
         cache.put(serverParam.serverName(), serverParam);
+        return true;
     }
 
-    @Override
+    /*@Override
     public Class<?> findServer(String serverName) {
         ServerParam serverParam = cache.getIfPresent(serverName);
         if(serverParam==null){
             return null;
         }
         return serverParam.getImplClass();
+    }*/
+
+    @Override
+    public List<ServerParam> find(String serverName) {
+        return null;
     }
 }

@@ -4,16 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>xyz.javaboy</groupId>
-    <artifactId>rpc-demo</artifactId>
-    <version>${simple.rpc.versin}</version>
-    <modules>
-        <module>simple-rpc</module>
-        <module>server-exmple</module>
-        <module>common-api</module>
-        <module>client-exmple</module>
-    </modules>
+    <groupId>com.xchb</groupId>
+    <artifactId>xrpc</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <modules>
+        <module>xrpc-core</module>
+        <module>xrpc-demo</module>
+    </modules>
 
 
     <properties>
@@ -23,7 +22,7 @@
         <curator.version>4.2.0</curator.version>
         <kryo.version>4.0.0</kryo.version>
         <logback.version>1.2.3</logback.version>
-        <simple.rpc.versin>1.0-SNAPSHOT</simple.rpc.versin>
+        <xrpc.versin>1.0-SNAPSHOT</xrpc.versin>
         <spring.version>5.2.7.RELEASE</spring.version>
     </properties>
 
@@ -46,6 +45,12 @@
                 <groupId>com.esotericsoftware</groupId>
                 <artifactId>kryo-shaded</artifactId>
                 <version>${kryo.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>3.8.0</version>
             </dependency>
 
 
@@ -74,17 +79,10 @@
                 <version>${logback.version}</version>
             </dependency>
 
-
             <dependency>
-                <artifactId>common-api</artifactId>
-                <groupId>xyz.javaboy</groupId>
-                <version>${simple.rpc.versin}</version>
-            </dependency>
-
-            <dependency>
-                <artifactId>simple-rpc</artifactId>
-                <groupId>xyz.javaboy</groupId>
-                <version>${simple.rpc.versin}</version>
+                <groupId>com.xchb</groupId>
+                <artifactId>xrpc-core</artifactId>
+                <version>${xrpc.versin}</version>
             </dependency>
 
             <dependency>

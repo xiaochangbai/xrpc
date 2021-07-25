@@ -1,0 +1,12 @@
+syntax = "proto3";
+package com.xchb.xrpc.common.proto;
+option java_outer_classname="RpcResponseProto";
+
+message RpcResponse {
+  string id = 1;
+  string data = 2;
+}
+
+
+
+

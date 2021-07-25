@@ -1,2 +1,0 @@
-#负载均衡算法
-algorithm=xyz.javaboy.loadbalance.impl.RandomLoadBalance

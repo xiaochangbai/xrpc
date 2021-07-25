@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>xrpc</artifactId>
+        <groupId>com.xchb</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>xrpc-demo</artifactId>
+    <version>${xrpc.demo.versin}</version>
+
+    <modules>
+        <module>server-exmple</module>
+        <module>server-api</module>
+        <module>client-exmple</module>
+    </modules>
+
+    <properties>
+        <xrpc.demo.versin>1.0-SNAPSHOT</xrpc.demo.versin>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.xchb</groupId>
+                <artifactId>server-exmple</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xchb</groupId>
+                <artifactId>client-exmple</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xchb</groupId>
+                <artifactId>server-api</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xchb</groupId>
+                <artifactId>xrpc-core</artifactId>
+                <version>${xrpc.versin}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

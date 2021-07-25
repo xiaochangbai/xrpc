@@ -1,3 +1,0 @@
-#server register and discover
-local=xyz.javaboy.register.impl.LocalServerRegister
-zk=xyz.javaboy.register.impl.ZkServerRegister

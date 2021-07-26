@@ -1,5 +1,6 @@
 package com.xchb.xrpc.transport.client;
 
+import com.xchb.xrpc.common.proto.RpcResponseProto;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.Channel;
@@ -9,13 +10,16 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufEncoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
 
-import com.xchb.xrpc.common.RpcRequest;
-import com.xchb.xrpc.common.RpcResponse;
+
 import com.xchb.xrpc.transport.client.handler.ClientHandler;
 import com.xchb.xrpc.transport.codec.RpcCustomDecode;
 import com.xchb.xrpc.transport.codec.RpcCustomEncode;
@@ -48,8 +52,12 @@ public class ClientBooter {
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         ChannelPipeline pipeline = socketChannel.pipeline();
-                        pipeline.addLast("encode",new RpcCustomEncode(RpcRequest.class))
-                                .addLast("decode",new RpcCustomDecode(RpcResponse.class))
+//                        pipeline.addLast("encode",new RpcCustomEncode(RpcRequest.class))
+//                                .addLast("decode",new RpcCustomDecode(RpcResponse.class))
+                        pipeline.addLast(new ProtobufVarint32FrameDecoder())
+                                .addLast(new ProtobufDecoder(RpcResponseProto.RpcResponse.getDefaultInstance()))
+                                .addLast(new ProtobufVarint32LengthFieldPrepender())
+                                .addLast(new ProtobufEncoder())
                                 .addLast("client-idle-handler", new IdleStateHandler(30, 0, 0, TimeUnit.SECONDS))
                                 .addLast("handler",new ClientHandler());
                     }

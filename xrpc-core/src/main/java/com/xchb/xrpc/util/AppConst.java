@@ -10,7 +10,7 @@ public class AppConst {
 
     public static final Integer SERVER_PORT = 8770;
 
-    public static final String ZK_CONNECTION_INFO = "192.168.56.101:2181";
+    public static final String ZK_CONNECTION_INFO = "localhost:2181";
 
     public static String SERVER_IP = null;
 

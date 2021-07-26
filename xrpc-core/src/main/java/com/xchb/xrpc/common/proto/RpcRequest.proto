@@ -5,11 +5,10 @@ option java_outer_classname="RpcRequestProto";
 message RpcRequest {
   string id = 1;
   string methodName = 2;
-  repeated string paramTypes = 3;
-  repeated string params = 4;
-  string version = 5;
-  string group = 6;
-  string interfaceClass = 7;
+  map<string,string> paramInfos = 3;
+  string version = 4;
+  string group = 5;
+  string interfaceClass = 6;
 }
 
 

@@ -1,11 +1,13 @@
 package com.xchb.xrpc.proxy;
 
 import cn.hutool.core.util.IdUtil;
-import com.xchb.xrpc.common.RpcRequest;
-import com.xchb.xrpc.common.RpcResponse;
+import com.alibaba.fastjson.JSONObject;
 import com.xchb.xrpc.common.ServerParam;
+import com.xchb.xrpc.common.proto.RpcRequestProto;
+import com.xchb.xrpc.common.proto.RpcResponseProto;
 import com.xchb.xrpc.transport.client.ClientBooter;
 import com.xchb.xrpc.util.AppConst;
+import com.xchb.xrpc.util.ProtoBufUtils;
 import com.xchb.xrpc.util.SingleFactory;
 import com.xchb.xrpc.util.UnProcessRequest;
 import io.netty.channel.Channel;
@@ -15,7 +17,12 @@ import lombok.extern.slf4j.Slf4j;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 /**
  * @author XDD
@@ -35,15 +42,18 @@ public class ClientProxy implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        CompletableFuture<RpcResponse<Object>> completableFuture = new CompletableFuture<>();
+        CompletableFuture<RpcResponseProto.RpcResponse> completableFuture = new CompletableFuture<>();
 
-        RpcRequest request = RpcRequest.builder().group(serverParam.getGroup())
-                .version(serverParam.getVersion())
-                .methodName(method.getName())
-                .params(args)
-                .id(IdUtil.simpleUUID())
-                .interfaceClass(serverParam.getInterfaceClass())
-                .paramTypes(method.getParameterTypes())
+        LinkedHashMap<String,String> paramInfo = ProtoBufUtils.buildString(method.getParameterTypes(),args);
+
+        RpcRequestProto.RpcRequest request = RpcRequestProto.RpcRequest
+                .newBuilder()
+                .setGroup(serverParam.getGroup())
+                .setVersion(serverParam.getVersion())
+                .setMethodName(method.getName())
+                .setId(IdUtil.simpleUUID())
+                .setInterfaceClass(serverParam.getInterfaceClass().getCanonicalName())
+                .putAllParamInfos(paramInfo)
                 .build();
 
         ClientBooter clientBooter = SingleFactory.getInstance(ClientBooter.class);
@@ -56,7 +66,10 @@ public class ClientProxy implements InvocationHandler {
                 completableFuture.completeExceptionally(future.cause());
             }
         });
-        Object data = completableFuture.get().getData();
+        RpcResponseProto.RpcResponse rpcResponse = completableFuture.get();
+
+
+        Object data = ProtoBufUtils.buildDataByType(rpcResponse.getDataType(),rpcResponse.getData());
         channel.close();
         return data;
     }

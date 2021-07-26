@@ -43,7 +43,5 @@ public class RpcRequestBak {
     public static void main(String[] args) {
     }
 
-    public String serverName(){
-        return ServerParam.buildServerName(this.interfaceClass, this.version, this.group);
-    }
+
 }

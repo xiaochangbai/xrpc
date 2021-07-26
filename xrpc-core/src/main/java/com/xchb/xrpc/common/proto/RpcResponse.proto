@@ -5,6 +5,7 @@ option java_outer_classname="RpcResponseProto";
 message RpcResponse {
   string id = 1;
   string data = 2;
+  string dataType = 3;
 }
 
 

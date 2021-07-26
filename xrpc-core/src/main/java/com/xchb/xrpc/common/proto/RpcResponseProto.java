@@ -41,6 +41,18 @@ public final class RpcResponseProto {
      */
     com.google.protobuf.ByteString
         getDataBytes();
+
+    /**
+     * <code>string dataType = 3;</code>
+     * @return The dataType.
+     */
+    java.lang.String getDataType();
+    /**
+     * <code>string dataType = 3;</code>
+     * @return The bytes for dataType.
+     */
+    com.google.protobuf.ByteString
+        getDataTypeBytes();
   }
   /**
    * Protobuf type {@code com.xchb.xrpc.common.proto.RpcResponse}
@@ -57,6 +69,7 @@ public final class RpcResponseProto {
     private RpcResponse() {
       id_ = "";
       data_ = "";
+      dataType_ = "";
     }
 
     @java.lang.Override
@@ -99,6 +112,12 @@ public final class RpcResponseProto {
               java.lang.String s = input.readStringRequireUtf8();
 
               data_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              dataType_ = s;
               break;
             }
             default: {
@@ -209,6 +228,44 @@ public final class RpcResponseProto {
       }
     }
 
+    public static final int DATATYPE_FIELD_NUMBER = 3;
+    private volatile java.lang.Object dataType_;
+    /**
+     * <code>string dataType = 3;</code>
+     * @return The dataType.
+     */
+    @java.lang.Override
+    public java.lang.String getDataType() {
+      java.lang.Object ref = dataType_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        dataType_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string dataType = 3;</code>
+     * @return The bytes for dataType.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDataTypeBytes() {
+      java.lang.Object ref = dataType_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        dataType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -229,6 +286,9 @@ public final class RpcResponseProto {
       if (!getDataBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, data_);
       }
+      if (!getDataTypeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, dataType_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -243,6 +303,9 @@ public final class RpcResponseProto {
       }
       if (!getDataBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, data_);
+      }
+      if (!getDataTypeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, dataType_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -263,6 +326,8 @@ public final class RpcResponseProto {
           .equals(other.getId())) return false;
       if (!getData()
           .equals(other.getData())) return false;
+      if (!getDataType()
+          .equals(other.getDataType())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -278,6 +343,8 @@ public final class RpcResponseProto {
       hash = (53 * hash) + getId().hashCode();
       hash = (37 * hash) + DATA_FIELD_NUMBER;
       hash = (53 * hash) + getData().hashCode();
+      hash = (37 * hash) + DATATYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getDataType().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -415,6 +482,8 @@ public final class RpcResponseProto {
 
         data_ = "";
 
+        dataType_ = "";
+
         return this;
       }
 
@@ -443,6 +512,7 @@ public final class RpcResponseProto {
         com.xchb.xrpc.common.proto.RpcResponseProto.RpcResponse result = new com.xchb.xrpc.common.proto.RpcResponseProto.RpcResponse(this);
         result.id_ = id_;
         result.data_ = data_;
+        result.dataType_ = dataType_;
         onBuilt();
         return result;
       }
@@ -497,6 +567,10 @@ public final class RpcResponseProto {
         }
         if (!other.getData().isEmpty()) {
           data_ = other.data_;
+          onChanged();
+        }
+        if (!other.getDataType().isEmpty()) {
+          dataType_ = other.dataType_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -679,6 +753,82 @@ public final class RpcResponseProto {
         onChanged();
         return this;
       }
+
+      private java.lang.Object dataType_ = "";
+      /**
+       * <code>string dataType = 3;</code>
+       * @return The dataType.
+       */
+      public java.lang.String getDataType() {
+        java.lang.Object ref = dataType_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          dataType_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string dataType = 3;</code>
+       * @return The bytes for dataType.
+       */
+      public com.google.protobuf.ByteString
+          getDataTypeBytes() {
+        java.lang.Object ref = dataType_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          dataType_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string dataType = 3;</code>
+       * @param value The dataType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDataType(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        dataType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string dataType = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDataType() {
+        
+        dataType_ = getDefaultInstance().getDataType();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string dataType = 3;</code>
+       * @param value The bytes for dataType to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDataTypeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        dataType_ = value;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -747,8 +897,9 @@ public final class RpcResponseProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\021RpcResponse.proto\022\032com.xchb.xrpc.commo" +
-      "n.proto\"\'\n\013RpcResponse\022\n\n\002id\030\001 \001(\t\022\014\n\004da" +
-      "ta\030\002 \001(\tB\022B\020RpcResponseProtob\006proto3"
+      "n.proto\"9\n\013RpcResponse\022\n\n\002id\030\001 \001(\t\022\014\n\004da" +
+      "ta\030\002 \001(\t\022\020\n\010dataType\030\003 \001(\tB\022B\020RpcRespons" +
+      "eProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -759,7 +910,7 @@ public final class RpcResponseProto {
     internal_static_com_xchb_xrpc_common_proto_RpcResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_xchb_xrpc_common_proto_RpcResponse_descriptor,
-        new java.lang.String[] { "Id", "Data", });
+        new java.lang.String[] { "Id", "Data", "DataType", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -1,6 +1,7 @@
 package com.xchb.xrpc.util;
 
-import com.xchb.xrpc.common.RpcResponse;
+
+import com.xchb.xrpc.common.proto.RpcResponseProto;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -21,7 +22,7 @@ public class UnProcessRequest {
         UnProcessRequest.MAPS.put(requestId, completableFuture);
     }
 
-    public static void compale(RpcResponse rpcResponse){
+    public static void compale(RpcResponseProto.RpcResponse rpcResponse){
         CompletableFuture completableFuture = MAPS.get(rpcResponse.getId());
         if(completableFuture!=null){
             completableFuture.complete(rpcResponse);

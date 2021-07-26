@@ -3,6 +3,7 @@ package com.xchb.xrpc.entity;
 import cn.hutool.core.util.StrUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author XDD
@@ -11,6 +12,7 @@ import lombok.Data;
  * @description Good Good Study,Day Day Up.
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class User {
 
@@ -27,5 +29,7 @@ public class User {
         }
         return false;
     }
+
+
 
 }

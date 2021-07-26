@@ -43,86 +43,70 @@ public final class RpcRequestProto {
         getMethodNameBytes();
 
     /**
-     * <code>repeated string paramTypes = 3;</code>
-     * @return A list containing the paramTypes.
+     * <code>map&lt;string, string&gt; paramInfos = 3;</code>
      */
-    java.util.List<java.lang.String>
-        getParamTypesList();
+    int getParamInfosCount();
     /**
-     * <code>repeated string paramTypes = 3;</code>
-     * @return The count of paramTypes.
+     * <code>map&lt;string, string&gt; paramInfos = 3;</code>
      */
-    int getParamTypesCount();
+    boolean containsParamInfos(
+        java.lang.String key);
     /**
-     * <code>repeated string paramTypes = 3;</code>
-     * @param index The index of the element to return.
-     * @return The paramTypes at the given index.
+     * Use {@link #getParamInfosMap()} instead.
      */
-    java.lang.String getParamTypes(int index);
+    @java.lang.Deprecated
+    java.util.Map<java.lang.String, java.lang.String>
+    getParamInfos();
     /**
-     * <code>repeated string paramTypes = 3;</code>
-     * @param index The index of the value to return.
-     * @return The bytes of the paramTypes at the given index.
+     * <code>map&lt;string, string&gt; paramInfos = 3;</code>
      */
-    com.google.protobuf.ByteString
-        getParamTypesBytes(int index);
+    java.util.Map<java.lang.String, java.lang.String>
+    getParamInfosMap();
+    /**
+     * <code>map&lt;string, string&gt; paramInfos = 3;</code>
+     */
+
+    java.lang.String getParamInfosOrDefault(
+        java.lang.String key,
+        java.lang.String defaultValue);
+    /**
+     * <code>map&lt;string, string&gt; paramInfos = 3;</code>
+     */
+
+    java.lang.String getParamInfosOrThrow(
+        java.lang.String key);
 
     /**
-     * <code>repeated string params = 4;</code>
-     * @return A list containing the params.
-     */
-    java.util.List<java.lang.String>
-        getParamsList();
-    /**
-     * <code>repeated string params = 4;</code>
-     * @return The count of params.
-     */
-    int getParamsCount();
-    /**
-     * <code>repeated string params = 4;</code>
-     * @param index The index of the element to return.
-     * @return The params at the given index.
-     */
-    java.lang.String getParams(int index);
-    /**
-     * <code>repeated string params = 4;</code>
-     * @param index The index of the value to return.
-     * @return The bytes of the params at the given index.
-     */
-    com.google.protobuf.ByteString
-        getParamsBytes(int index);
-
-    /**
-     * <code>string version = 5;</code>
+     * <code>string version = 4;</code>
      * @return The version.
      */
     java.lang.String getVersion();
     /**
-     * <code>string version = 5;</code>
+     * <code>string version = 4;</code>
      * @return The bytes for version.
      */
     com.google.protobuf.ByteString
         getVersionBytes();
 
     /**
-     * <code>string group = 6;</code>
+     * <code>string group = 5;</code>
      * @return The group.
      */
     java.lang.String getGroup();
     /**
-     * <code>string group = 6;</code>
+     * <code>string group = 5;</code>
      * @return The bytes for group.
      */
     com.google.protobuf.ByteString
         getGroupBytes();
 
     /**
-     * <code>string interfaceClass = 7;</code>
+     * <code>string interfaceClass = 6;</code>
      * @return The interfaceClass.
      */
     java.lang.String getInterfaceClass();
     /**
-     * <code>string interfaceClass = 7;</code>
+     * <code>string interfaceClass = 6;</code>
      * @return The bytes for interfaceClass.
      */
     com.google.protobuf.ByteString
@@ -143,8 +127,6 @@ public final class RpcRequestProto {
     private RpcRequest() {
       id_ = "";
       methodName_ = "";
-      paramTypes_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      params_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       version_ = "";
       group_ = "";
       interfaceClass_ = "";
@@ -194,36 +176,31 @@ public final class RpcRequestProto {
               break;
             }
             case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                paramTypes_ = new com.google.protobuf.LazyStringArrayList();
+                paramInfos_ = com.google.protobuf.MapField.newMapField(
+                    ParamInfosDefaultEntryHolder.defaultEntry);
                 mutable_bitField0_ |= 0x00000001;
               }
-              paramTypes_.add(s);
+              com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+              paramInfos__ = input.readMessage(
+                  ParamInfosDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+              paramInfos_.getMutableMap().put(
+                  paramInfos__.getKey(), paramInfos__.getValue());
               break;
             }
             case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
-                params_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000002;
-              }
-              params_.add(s);
-              break;
-            }
-            case 42: {
               java.lang.String s = input.readStringRequireUtf8();
 
               version_ = s;
               break;
             }
-            case 50: {
+            case 42: {
               java.lang.String s = input.readStringRequireUtf8();
 
               group_ = s;
               break;
             }
-            case 58: {
+            case 50: {
               java.lang.String s = input.readStringRequireUtf8();
 
               interfaceClass_ = s;
@@ -244,12 +221,6 @@ public final class RpcRequestProto {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000001) != 0)) {
-          paramTypes_ = paramTypes_.getUnmodifiableView();
-        }
-        if (((mutable_bitField0_ & 0x00000002) != 0)) {
-          params_ = params_.getUnmodifiableView();
-        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -259,6 +230,18 @@ public final class RpcRequestProto {
       return com.xchb.xrpc.common.proto.RpcRequestProto.internal_static_com_xchb_xrpc_common_proto_RpcRequest_descriptor;
     }
 
+    @SuppressWarnings({"rawtypes"})
+    @java.lang.Override
+    protected com.google.protobuf.MapField internalGetMapField(
+        int number) {
+      switch (number) {
+        case 3:
+          return internalGetParamInfos();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
@@ -343,80 +326,91 @@ public final class RpcRequestProto {
       }
     }
 
-    public static final int PARAMTYPES_FIELD_NUMBER = 3;
-    private com.google.protobuf.LazyStringList paramTypes_;
-    /**
-     * <code>repeated string paramTypes = 3;</code>
-     * @return A list containing the paramTypes.
-     */
-    public com.google.protobuf.ProtocolStringList
-        getParamTypesList() {
-      return paramTypes_;
+    public static final int PARAMINFOS_FIELD_NUMBER = 3;
+    private static final class ParamInfosDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.String, java.lang.String> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.String, java.lang.String>newDefaultInstance(
+                  com.xchb.xrpc.common.proto.RpcRequestProto.internal_static_com_xchb_xrpc_common_proto_RpcRequest_ParamInfosEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "",
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "");
     }
-    /**
-     * <code>repeated string paramTypes = 3;</code>
-     * @return The count of paramTypes.
-     */
-    public int getParamTypesCount() {
-      return paramTypes_.size();
-    }
-    /**
-     * <code>repeated string paramTypes = 3;</code>
-     * @param index The index of the element to return.
-     * @return The paramTypes at the given index.
-     */
-    public java.lang.String getParamTypes(int index) {
-      return paramTypes_.get(index);
-    }
-    /**
-     * <code>repeated string paramTypes = 3;</code>
-     * @param index The index of the value to return.
-     * @return The bytes of the paramTypes at the given index.
-     */
-    public com.google.protobuf.ByteString
-        getParamTypesBytes(int index) {
-      return paramTypes_.getByteString(index);
+    private com.google.protobuf.MapField<
+        java.lang.String, java.lang.String> paramInfos_;
+    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+    internalGetParamInfos() {
+      if (paramInfos_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            ParamInfosDefaultEntryHolder.defaultEntry);
+      }
+      return paramInfos_;
     }
 
-    public static final int PARAMS_FIELD_NUMBER = 4;
-    private com.google.protobuf.LazyStringList params_;
-    /**
-     * <code>repeated string params = 4;</code>
-     * @return A list containing the params.
-     */
-    public com.google.protobuf.ProtocolStringList
-        getParamsList() {
-      return params_;
+    public int getParamInfosCount() {
+      return internalGetParamInfos().getMap().size();
     }
     /**
-     * <code>repeated string params = 4;</code>
-     * @return The count of params.
+     * <code>map&lt;string, string&gt; paramInfos = 3;</code>
      */
-    public int getParamsCount() {
-      return params_.size();
+
+    @java.lang.Override
+    public boolean containsParamInfos(
+        java.lang.String key) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      return internalGetParamInfos().getMap().containsKey(key);
     }
     /**
-     * <code>repeated string params = 4;</code>
-     * @param index The index of the element to return.
-     * @return The params at the given index.
+     * Use {@link #getParamInfosMap()} instead.
      */
-    public java.lang.String getParams(int index) {
-      return params_.get(index);
+    @java.lang.Override
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.String> getParamInfos() {
+      return getParamInfosMap();
     }
     /**
-     * <code>repeated string params = 4;</code>
-     * @param index The index of the value to return.
-     * @return The bytes of the params at the given index.
+     * <code>map&lt;string, string&gt; paramInfos = 3;</code>
      */
-    public com.google.protobuf.ByteString
-        getParamsBytes(int index) {
-      return params_.getByteString(index);
+    @java.lang.Override
+
+    public java.util.Map<java.lang.String, java.lang.String> getParamInfosMap() {
+      return internalGetParamInfos().getMap();
+    }
+    /**
+     * <code>map&lt;string, string&gt; paramInfos = 3;</code>
+     */
+    @java.lang.Override
+
+    public java.lang.String getParamInfosOrDefault(
+        java.lang.String key,
+        java.lang.String defaultValue) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetParamInfos().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <code>map&lt;string, string&gt; paramInfos = 3;</code>
+     */
+    @java.lang.Override
+
+    public java.lang.String getParamInfosOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new java.lang.NullPointerException(); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetParamInfos().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
     }
 
-    public static final int VERSION_FIELD_NUMBER = 5;
+    public static final int VERSION_FIELD_NUMBER = 4;
     private volatile java.lang.Object version_;
     /**
-     * <code>string version = 5;</code>
+     * <code>string version = 4;</code>
      * @return The version.
      */
     @java.lang.Override
@@ -433,7 +427,7 @@ public final class RpcRequestProto {
       }
     }
     /**
-     * <code>string version = 5;</code>
+     * <code>string version = 4;</code>
      * @return The bytes for version.
      */
     @java.lang.Override
@@ -451,10 +445,10 @@ public final class RpcRequestProto {
       }
     }
 
-    public static final int GROUP_FIELD_NUMBER = 6;
+    public static final int GROUP_FIELD_NUMBER = 5;
     private volatile java.lang.Object group_;
     /**
-     * <code>string group = 6;</code>
+     * <code>string group = 5;</code>
      * @return The group.
      */
     @java.lang.Override
@@ -471,7 +465,7 @@ public final class RpcRequestProto {
       }
     }
     /**
-     * <code>string group = 6;</code>
+     * <code>string group = 5;</code>
      * @return The bytes for group.
      */
     @java.lang.Override
@@ -489,10 +483,10 @@ public final class RpcRequestProto {
       }
     }
 
-    public static final int INTERFACECLASS_FIELD_NUMBER = 7;
+    public static final int INTERFACECLASS_FIELD_NUMBER = 6;
     private volatile java.lang.Object interfaceClass_;
     /**
-     * <code>string interfaceClass = 7;</code>
+     * <code>string interfaceClass = 6;</code>
      * @return The interfaceClass.
      */
     @java.lang.Override
@@ -509,7 +503,7 @@ public final class RpcRequestProto {
       }
     }
     /**
-     * <code>string interfaceClass = 7;</code>
+     * <code>string interfaceClass = 6;</code>
      * @return The bytes for interfaceClass.
      */
     @java.lang.Override
@@ -547,20 +541,20 @@ public final class RpcRequestProto {
       if (!getMethodNameBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, methodName_);
       }
-      for (int i = 0; i < paramTypes_.size(); i++) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, paramTypes_.getRaw(i));
-      }
-      for (int i = 0; i < params_.size(); i++) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, params_.getRaw(i));
-      }
+      com.google.protobuf.GeneratedMessageV3
+        .serializeStringMapTo(
+          output,
+          internalGetParamInfos(),
+          ParamInfosDefaultEntryHolder.defaultEntry,
+          3);
       if (!getVersionBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, version_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, version_);
       }
       if (!getGroupBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, group_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, group_);
       }
       if (!getInterfaceClassBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, interfaceClass_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, interfaceClass_);
       }
       unknownFields.writeTo(output);
     }
@@ -577,30 +571,24 @@ public final class RpcRequestProto {
       if (!getMethodNameBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, methodName_);
       }
-      {
-        int dataSize = 0;
-        for (int i = 0; i < paramTypes_.size(); i++) {
-          dataSize += computeStringSizeNoTag(paramTypes_.getRaw(i));
-        }
-        size += dataSize;
-        size += 1 * getParamTypesList().size();
-      }
-      {
-        int dataSize = 0;
-        for (int i = 0; i < params_.size(); i++) {
-          dataSize += computeStringSizeNoTag(params_.getRaw(i));
-        }
-        size += dataSize;
-        size += 1 * getParamsList().size();
+      for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
+           : internalGetParamInfos().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+        paramInfos__ = ParamInfosDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(3, paramInfos__);
       }
       if (!getVersionBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, version_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, version_);
       }
       if (!getGroupBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, group_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, group_);
       }
       if (!getInterfaceClassBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, interfaceClass_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, interfaceClass_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -621,10 +609,8 @@ public final class RpcRequestProto {
           .equals(other.getId())) return false;
       if (!getMethodName()
           .equals(other.getMethodName())) return false;
-      if (!getParamTypesList()
-          .equals(other.getParamTypesList())) return false;
-      if (!getParamsList()
-          .equals(other.getParamsList())) return false;
+      if (!internalGetParamInfos().equals(
+          other.internalGetParamInfos())) return false;
       if (!getVersion()
           .equals(other.getVersion())) return false;
       if (!getGroup()
@@ -646,13 +632,9 @@ public final class RpcRequestProto {
       hash = (53 * hash) + getId().hashCode();
       hash = (37 * hash) + METHODNAME_FIELD_NUMBER;
       hash = (53 * hash) + getMethodName().hashCode();
-      if (getParamTypesCount() > 0) {
-        hash = (37 * hash) + PARAMTYPES_FIELD_NUMBER;
-        hash = (53 * hash) + getParamTypesList().hashCode();
-      }
-      if (getParamsCount() > 0) {
-        hash = (37 * hash) + PARAMS_FIELD_NUMBER;
-        hash = (53 * hash) + getParamsList().hashCode();
+      if (!internalGetParamInfos().getMap().isEmpty()) {
+        hash = (37 * hash) + PARAMINFOS_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetParamInfos().hashCode();
       }
       hash = (37 * hash) + VERSION_FIELD_NUMBER;
       hash = (53 * hash) + getVersion().hashCode();
@@ -767,6 +749,28 @@ public final class RpcRequestProto {
         return com.xchb.xrpc.common.proto.RpcRequestProto.internal_static_com_xchb_xrpc_common_proto_RpcRequest_descriptor;
       }
 
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMapField(
+          int number) {
+        switch (number) {
+          case 3:
+            return internalGetParamInfos();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMutableMapField(
+          int number) {
+        switch (number) {
+          case 3:
+            return internalGetMutableParamInfos();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
@@ -797,10 +801,7 @@ public final class RpcRequestProto {
 
         methodName_ = "";
 
-        paramTypes_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        params_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000002);
+        internalGetMutableParamInfos().clear();
         version_ = "";
 
         group_ = "";
@@ -836,16 +837,8 @@ public final class RpcRequestProto {
         int from_bitField0_ = bitField0_;
         result.id_ = id_;
         result.methodName_ = methodName_;
-        if (((bitField0_ & 0x00000001) != 0)) {
-          paramTypes_ = paramTypes_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        }
-        result.paramTypes_ = paramTypes_;
-        if (((bitField0_ & 0x00000002) != 0)) {
-          params_ = params_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000002);
-        }
-        result.params_ = params_;
+        result.paramInfos_ = internalGetParamInfos();
+        result.paramInfos_.makeImmutable();
         result.version_ = version_;
         result.group_ = group_;
         result.interfaceClass_ = interfaceClass_;
@@ -905,26 +898,8 @@ public final class RpcRequestProto {
           methodName_ = other.methodName_;
           onChanged();
         }
-        if (!other.paramTypes_.isEmpty()) {
-          if (paramTypes_.isEmpty()) {
-            paramTypes_ = other.paramTypes_;
-            bitField0_ = (bitField0_ & ~0x00000001);
-          } else {
-            ensureParamTypesIsMutable();
-            paramTypes_.addAll(other.paramTypes_);
-          }
-          onChanged();
-        }
-        if (!other.params_.isEmpty()) {
-          if (params_.isEmpty()) {
-            params_ = other.params_;
-            bitField0_ = (bitField0_ & ~0x00000002);
-          } else {
-            ensureParamsIsMutable();
-            params_.addAll(other.params_);
-          }
-          onChanged();
-        }
+        internalGetMutableParamInfos().mergeFrom(
+            other.internalGetParamInfos());
         if (!other.getVersion().isEmpty()) {
           version_ = other.version_;
           onChanged();
@@ -1119,229 +1094,137 @@ public final class RpcRequestProto {
         return this;
       }
 
-      private com.google.protobuf.LazyStringList paramTypes_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      private void ensureParamTypesIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
-          paramTypes_ = new com.google.protobuf.LazyStringArrayList(paramTypes_);
-          bitField0_ |= 0x00000001;
-         }
+      private com.google.protobuf.MapField<
+          java.lang.String, java.lang.String> paramInfos_;
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+      internalGetParamInfos() {
+        if (paramInfos_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              ParamInfosDefaultEntryHolder.defaultEntry);
+        }
+        return paramInfos_;
       }
-      /**
-       * <code>repeated string paramTypes = 3;</code>
-       * @return A list containing the paramTypes.
-       */
-      public com.google.protobuf.ProtocolStringList
-          getParamTypesList() {
-        return paramTypes_.getUnmodifiableView();
-      }
-      /**
-       * <code>repeated string paramTypes = 3;</code>
-       * @return The count of paramTypes.
-       */
-      public int getParamTypesCount() {
-        return paramTypes_.size();
-      }
-      /**
-       * <code>repeated string paramTypes = 3;</code>
-       * @param index The index of the element to return.
-       * @return The paramTypes at the given index.
-       */
-      public java.lang.String getParamTypes(int index) {
-        return paramTypes_.get(index);
-      }
-      /**
-       * <code>repeated string paramTypes = 3;</code>
-       * @param index The index of the value to return.
-       * @return The bytes of the paramTypes at the given index.
-       */
-      public com.google.protobuf.ByteString
-          getParamTypesBytes(int index) {
-        return paramTypes_.getByteString(index);
-      }
-      /**
-       * <code>repeated string paramTypes = 3;</code>
-       * @param index The index to set the value at.
-       * @param value The paramTypes to set.
-       * @return This builder for chaining.
-       */
-      public Builder setParamTypes(
-          int index, java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureParamTypesIsMutable();
-        paramTypes_.set(index, value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string paramTypes = 3;</code>
-       * @param value The paramTypes to add.
-       * @return This builder for chaining.
-       */
-      public Builder addParamTypes(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureParamTypesIsMutable();
-        paramTypes_.add(value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string paramTypes = 3;</code>
-       * @param values The paramTypes to add.
-       * @return This builder for chaining.
-       */
-      public Builder addAllParamTypes(
-          java.lang.Iterable<java.lang.String> values) {
-        ensureParamTypesIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, paramTypes_);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string paramTypes = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearParamTypes() {
-        paramTypes_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string paramTypes = 3;</code>
-       * @param value The bytes of the paramTypes to add.
-       * @return This builder for chaining.
-       */
-      public Builder addParamTypesBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        ensureParamTypesIsMutable();
-        paramTypes_.add(value);
-        onChanged();
-        return this;
+      private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+      internalGetMutableParamInfos() {
+        onChanged();;
+        if (paramInfos_ == null) {
+          paramInfos_ = com.google.protobuf.MapField.newMapField(
+              ParamInfosDefaultEntryHolder.defaultEntry);
+        }
+        if (!paramInfos_.isMutable()) {
+          paramInfos_ = paramInfos_.copy();
+        }
+        return paramInfos_;
       }
 
-      private com.google.protobuf.LazyStringList params_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      private void ensureParamsIsMutable() {
-        if (!((bitField0_ & 0x00000002) != 0)) {
-          params_ = new com.google.protobuf.LazyStringArrayList(params_);
-          bitField0_ |= 0x00000002;
-         }
+      public int getParamInfosCount() {
+        return internalGetParamInfos().getMap().size();
       }
       /**
-       * <code>repeated string params = 4;</code>
-       * @return A list containing the params.
+       * <code>map&lt;string, string&gt; paramInfos = 3;</code>
        */
-      public com.google.protobuf.ProtocolStringList
-          getParamsList() {
-        return params_.getUnmodifiableView();
+
+      @java.lang.Override
+      public boolean containsParamInfos(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        return internalGetParamInfos().getMap().containsKey(key);
       }
       /**
-       * <code>repeated string params = 4;</code>
-       * @return The count of params.
+       * Use {@link #getParamInfosMap()} instead.
        */
-      public int getParamsCount() {
-        return params_.size();
+      @java.lang.Override
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String> getParamInfos() {
+        return getParamInfosMap();
       }
       /**
-       * <code>repeated string params = 4;</code>
-       * @param index The index of the element to return.
-       * @return The params at the given index.
+       * <code>map&lt;string, string&gt; paramInfos = 3;</code>
        */
-      public java.lang.String getParams(int index) {
-        return params_.get(index);
+      @java.lang.Override
+
+      public java.util.Map<java.lang.String, java.lang.String> getParamInfosMap() {
+        return internalGetParamInfos().getMap();
       }
       /**
-       * <code>repeated string params = 4;</code>
-       * @param index The index of the value to return.
-       * @return The bytes of the params at the given index.
+       * <code>map&lt;string, string&gt; paramInfos = 3;</code>
        */
-      public com.google.protobuf.ByteString
-          getParamsBytes(int index) {
-        return params_.getByteString(index);
+      @java.lang.Override
+
+      public java.lang.String getParamInfosOrDefault(
+          java.lang.String key,
+          java.lang.String defaultValue) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetParamInfos().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
       }
       /**
-       * <code>repeated string params = 4;</code>
-       * @param index The index to set the value at.
-       * @param value The params to set.
-       * @return This builder for chaining.
+       * <code>map&lt;string, string&gt; paramInfos = 3;</code>
        */
-      public Builder setParams(
-          int index, java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureParamsIsMutable();
-        params_.set(index, value);
-        onChanged();
+      @java.lang.Override
+
+      public java.lang.String getParamInfosOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        java.util.Map<java.lang.String, java.lang.String> map =
+            internalGetParamInfos().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+
+      public Builder clearParamInfos() {
+        internalGetMutableParamInfos().getMutableMap()
+            .clear();
         return this;
       }
       /**
-       * <code>repeated string params = 4;</code>
-       * @param value The params to add.
-       * @return This builder for chaining.
+       * <code>map&lt;string, string&gt; paramInfos = 3;</code>
        */
-      public Builder addParams(
+
+      public Builder removeParamInfos(
+          java.lang.String key) {
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        internalGetMutableParamInfos().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, java.lang.String>
+      getMutableParamInfos() {
+        return internalGetMutableParamInfos().getMutableMap();
+      }
+      /**
+       * <code>map&lt;string, string&gt; paramInfos = 3;</code>
+       */
+      public Builder putParamInfos(
+          java.lang.String key,
           java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureParamsIsMutable();
-        params_.add(value);
-        onChanged();
+        if (key == null) { throw new java.lang.NullPointerException(); }
+        if (value == null) { throw new java.lang.NullPointerException(); }
+        internalGetMutableParamInfos().getMutableMap()
+            .put(key, value);
         return this;
       }
       /**
-       * <code>repeated string params = 4;</code>
-       * @param values The params to add.
-       * @return This builder for chaining.
+       * <code>map&lt;string, string&gt; paramInfos = 3;</code>
        */
-      public Builder addAllParams(
-          java.lang.Iterable<java.lang.String> values) {
-        ensureParamsIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, params_);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string params = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearParams() {
-        params_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string params = 4;</code>
-       * @param value The bytes of the params to add.
-       * @return This builder for chaining.
-       */
-      public Builder addParamsBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        ensureParamsIsMutable();
-        params_.add(value);
-        onChanged();
+
+      public Builder putAllParamInfos(
+          java.util.Map<java.lang.String, java.lang.String> values) {
+        internalGetMutableParamInfos().getMutableMap()
+            .putAll(values);
         return this;
       }
 
       private java.lang.Object version_ = "";
       /**
-       * <code>string version = 5;</code>
+       * <code>string version = 4;</code>
        * @return The version.
        */
       public java.lang.String getVersion() {
@@ -1357,7 +1240,7 @@ public final class RpcRequestProto {
         }
       }
       /**
-       * <code>string version = 5;</code>
+       * <code>string version = 4;</code>
        * @return The bytes for version.
        */
       public com.google.protobuf.ByteString
@@ -1374,7 +1257,7 @@ public final class RpcRequestProto {
         }
       }
       /**
-       * <code>string version = 5;</code>
+       * <code>string version = 4;</code>
        * @param value The version to set.
        * @return This builder for chaining.
        */
@@ -1389,7 +1272,7 @@ public final class RpcRequestProto {
         return this;
       }
       /**
-       * <code>string version = 5;</code>
+       * <code>string version = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearVersion() {
@@ -1399,7 +1282,7 @@ public final class RpcRequestProto {
         return this;
       }
       /**
-       * <code>string version = 5;</code>
+       * <code>string version = 4;</code>
        * @param value The bytes for version to set.
        * @return This builder for chaining.
        */
@@ -1417,7 +1300,7 @@ public final class RpcRequestProto {
 
       private java.lang.Object group_ = "";
       /**
-       * <code>string group = 6;</code>
+       * <code>string group = 5;</code>
        * @return The group.
        */
       public java.lang.String getGroup() {
@@ -1433,7 +1316,7 @@ public final class RpcRequestProto {
         }
       }
       /**
-       * <code>string group = 6;</code>
+       * <code>string group = 5;</code>
        * @return The bytes for group.
        */
       public com.google.protobuf.ByteString
@@ -1450,7 +1333,7 @@ public final class RpcRequestProto {
         }
       }
       /**
-       * <code>string group = 6;</code>
+       * <code>string group = 5;</code>
        * @param value The group to set.
        * @return This builder for chaining.
        */
@@ -1465,7 +1348,7 @@ public final class RpcRequestProto {
         return this;
       }
       /**
-       * <code>string group = 6;</code>
+       * <code>string group = 5;</code>
        * @return This builder for chaining.
        */
       public Builder clearGroup() {
@@ -1475,7 +1358,7 @@ public final class RpcRequestProto {
         return this;
       }
       /**
-       * <code>string group = 6;</code>
+       * <code>string group = 5;</code>
        * @param value The bytes for group to set.
        * @return This builder for chaining.
        */
@@ -1493,7 +1376,7 @@ public final class RpcRequestProto {
 
       private java.lang.Object interfaceClass_ = "";
       /**
-       * <code>string interfaceClass = 7;</code>
+       * <code>string interfaceClass = 6;</code>
        * @return The interfaceClass.
        */
       public java.lang.String getInterfaceClass() {
@@ -1509,7 +1392,7 @@ public final class RpcRequestProto {
         }
       }
       /**
-       * <code>string interfaceClass = 7;</code>
+       * <code>string interfaceClass = 6;</code>
        * @return The bytes for interfaceClass.
        */
       public com.google.protobuf.ByteString
@@ -1526,7 +1409,7 @@ public final class RpcRequestProto {
         }
       }
       /**
-       * <code>string interfaceClass = 7;</code>
+       * <code>string interfaceClass = 6;</code>
        * @param value The interfaceClass to set.
        * @return This builder for chaining.
        */
@@ -1541,7 +1424,7 @@ public final class RpcRequestProto {
         return this;
       }
       /**
-       * <code>string interfaceClass = 7;</code>
+       * <code>string interfaceClass = 6;</code>
        * @return This builder for chaining.
        */
       public Builder clearInterfaceClass() {
@@ -1551,7 +1434,7 @@ public final class RpcRequestProto {
         return this;
       }
       /**
-       * <code>string interfaceClass = 7;</code>
+       * <code>string interfaceClass = 6;</code>
        * @param value The bytes for interfaceClass to set.
        * @return This builder for chaining.
        */
@@ -1624,6 +1507,11 @@ public final class RpcRequestProto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_xchb_xrpc_common_proto_RpcRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_xchb_xrpc_common_proto_RpcRequest_ParamInfosEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_xchb_xrpc_common_proto_RpcRequest_ParamInfosEntry_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1634,11 +1522,13 @@ public final class RpcRequestProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\020RpcRequest.proto\022\032com.xchb.xrpc.common" +
-      ".proto\"\210\001\n\nRpcRequest\022\n\n\002id\030\001 \001(\t\022\022\n\nmet" +
-      "hodName\030\002 \001(\t\022\022\n\nparamTypes\030\003 \003(\t\022\016\n\006par" +
-      "ams\030\004 \003(\t\022\017\n\007version\030\005 \001(\t\022\r\n\005group\030\006 \001(" +
-      "\t\022\026\n\016interfaceClass\030\007 \001(\tB\021B\017RpcRequestP" +
-      "rotob\006proto3"
+      ".proto\"\343\001\n\nRpcRequest\022\n\n\002id\030\001 \001(\t\022\022\n\nmet" +
+      "hodName\030\002 \001(\t\022J\n\nparamInfos\030\003 \003(\01326.com." +
+      "xchb.xrpc.common.proto.RpcRequest.ParamI" +
+      "nfosEntry\022\017\n\007version\030\004 \001(\t\022\r\n\005group\030\005 \001(" +
+      "\t\022\026\n\016interfaceClass\030\006 \001(\t\0321\n\017ParamInfosE" +
+      "ntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001B\021B\017" +
+      "RpcRequestProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1649,7 +1539,13 @@ public final class RpcRequestProto {
     internal_static_com_xchb_xrpc_common_proto_RpcRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_xchb_xrpc_common_proto_RpcRequest_descriptor,
-        new java.lang.String[] { "Id", "MethodName", "ParamTypes", "Params", "Version", "Group", "InterfaceClass", });
+        new java.lang.String[] { "Id", "MethodName", "ParamInfos", "Version", "Group", "InterfaceClass", });
+    internal_static_com_xchb_xrpc_common_proto_RpcRequest_ParamInfosEntry_descriptor =
+      internal_static_com_xchb_xrpc_common_proto_RpcRequest_descriptor.getNestedTypes().get(0);
+    internal_static_com_xchb_xrpc_common_proto_RpcRequest_ParamInfosEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_xchb_xrpc_common_proto_RpcRequest_ParamInfosEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

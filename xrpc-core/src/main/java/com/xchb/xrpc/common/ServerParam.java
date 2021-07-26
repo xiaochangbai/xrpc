@@ -41,14 +41,12 @@ public class ServerParam<T> implements Serializable {
      * @return
      */
     public String serverName(){
-        return ServerParam.buildServerName(this.interfaceClass, this.version, this.group);
+        return ServerParam.buildServerName(this.interfaceClass.getCanonicalName(), this.version, this.group);
     }
 
 
 
-    public static ServerParam buildDefaultServer(Class<?> interfaceClass,Class<?> implClass){
-        return new ServerParam("", "", IpUtils.localIP(), interfaceClass, implClass);
-    }
+
     public static ServerParam buildServer(Class<?> interfaceClass,Class<?> implClass,
                                                  String version,String group){
         return new ServerParam(version, group, IpUtils.localIP(), interfaceClass, implClass);
@@ -58,21 +56,18 @@ public class ServerParam<T> implements Serializable {
         return new ServerParam(version, group, null, interfaceClass, null);
     }
 
-    public static ServerParam buildRequet(Class<?> interfaceClass){
-        return new ServerParam("", "", null, interfaceClass, null);
-    }
 
 
 
     /**
      * 构建服务名称
-     * @param aClass 服务接口Class对象
+     * @param InterfaceCanonicalName 服务接口Class名称
      * @param version  服务版本
      * @param group    服务归属组
      * @return
      */
-    public static String buildServerName(Class<?> aClass,String version,String group){
-        return aClass.getCanonicalName()+":"+version+":"+group;
+    public static String buildServerName(String InterfaceCanonicalName,String version,String group){
+        return InterfaceCanonicalName+":"+version+":"+group;
     }
 
 

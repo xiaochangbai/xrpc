@@ -1,48 +1,21 @@
-<h2>RPC(Remote Procedure Call)实战</h2>
-<h2>@desc: 仅用于个人学习、了解RPC</h2>
-<h2>@date: 2021/01/16</h2>
-<hr/><br/>
+## Introduce
+ `XRPC(X Remote Procedure Call)`，Based on netty and high-performance RPC framework, it can be seamlessly integrated with spring framework
 
-<h3><b>技术组成：</b></h3>
-<table>
-    <thead>
-        <tr>
-            <td></td>
-            <td>版本一</td>
-            <td>版本二</td>
-            <td>版本三</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>传输层</td>
-            <td>Netty4</td>
-            <td>*</td>
-            <td>*</td>
-        </tr>
-        <tr>
-            <td>编码层</td>
-            <td>Kryo</td>
-            <td>*</td>
-            <td>*</td>
-        </tr>
-        <tr>
-            <td>应用层</td>
-            <td>JDK动态代理</td>
-            <td>*</td>
-            <td>*</td>
-        </tr>
-        <tr>
-            <td>服务注册与发现</td>
-            <td>手动注册+guava缓存</td>
-            <td>注解+zookeeper</td>
-            <td>*</td>
-        </tr>
-        <tr>
-            <td>其他</td>
-            <td>*</td>
-            <td>Spring容器</td>
-            <td>*</td>
-        </tr>
-    </tbody>
-</table>
+
+## Core Technology
+- Transport Layer： Netty、Protobuf
+- Application Layer： JDK Dynamic Agent
+- Registration Center： Zookeeper
+
+
+## TODO LIST：
+* [ ] 优化Netty长连接，引入连接池。
+* [ ] 代理层引入Cglib。
+* [ ] 注册中心引入Nacos。
+* [ ] 添加后台监控功能。
+
+
+
+## 快速启动
+
+首先需要安装 `Zookeeper` 并保证网络通畅，更多详情请参见`demo`项目。

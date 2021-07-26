@@ -16,6 +16,6 @@
 
 
 
-## 快速启动
+## Quick Start
 
 首先需要安装 `Zookeeper` 并保证网络通畅，更多详情请参见`demo`项目。

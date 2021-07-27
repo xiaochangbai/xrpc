@@ -17,10 +17,11 @@ public interface ServerRegister {
 
     /**
      * 服务注册
-     * @param serverParam
      * @return
      */
-    boolean register(ServerParam serverParam) ;
+    boolean register() ;
+
+
 
     /**
      * 服务发现
@@ -29,4 +30,5 @@ public interface ServerRegister {
      */
     List<ServerParam> find(String serverName);
 
+    void put(ServerParam serverParam);
 }

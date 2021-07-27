@@ -32,7 +32,7 @@ public class ClientProxyFactory {
     public static  <T> T newProxyInstance(ServerParam<T> serverParam) {
         Object obj = Proxy.newProxyInstance(serverParam.getInterfaceClass().getClassLoader()
                 , new Class[]{serverParam.getInterfaceClass()}, new ClientProxy(serverParam));
-        return serverParam.getInterfaceClass().cast(obj);
+        return (T) serverParam.getInterfaceClass().cast(obj);
     }
 
 }

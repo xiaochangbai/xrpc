@@ -50,8 +50,8 @@ public class CustomBeanRegistrar implements ImportBeanDefinitionRegistrar, Resou
         String[] basePackage = new String[tmp.length+1];
         ArrayUtil.copy(tmp, basePackage, tmp.length);
         //加入spring配置文件的包
-        basePackage[basePackage.length-1]=springConfigBasePackage;
-        log.debug("basePackage = {}",basePackage);
+        basePackage[basePackage.length-1]=CustomBeanRegistrar.class.getPackage().getName();
+        log.debug("basePackage = {}",Arrays.asList(basePackage));
 
         //扫描自定义注解
         ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(registry);

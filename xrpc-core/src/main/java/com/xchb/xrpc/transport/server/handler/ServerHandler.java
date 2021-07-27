@@ -28,15 +28,7 @@ import java.util.List;
 public class ServerHandler extends SimpleChannelInboundHandler<RpcRequestProto.RpcRequest> {
 
 
-    private Class<ServerRegister> local;
-    private ServerRegister serverRegister;
-    Class<LoadBalance> algorithm;
 
-    public ServerHandler(){
-        local = ExtensionLoader.get(ServerRegister.class, "zk");
-        serverRegister = SingleFactory.getInstance(local);
-        algorithm = ExtensionLoader.get(LoadBalance.class, "algorithm");;
-    }
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, RpcRequestProto.RpcRequest rpcRequest) throws Exception {
@@ -58,23 +50,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<RpcRequestProto.R
     private Object assembleResult(RpcRequestProto.RpcRequest request) {
         try {
 
-            String serverName = ServerParam.buildServerName(request.getInterfaceClass(),
-                    request.getVersion(), request.getGroup());
-            List<ServerParam> serverParams = serverRegister.find(serverName);
-            log.debug("发现服务列表：{}",serverParams);
-            if(serverParams==null || serverParams.size()<1){
-                throw new ServerNotFindExeception();
-            }
-
-            LoadBalance loadBalance = SingleFactory.getInstance(algorithm);
-            ServerParam serverParam = loadBalance.load(serverParams);
-
-            if(serverParam==null){
-                log.error("没有发现对应的服务: {}",serverName);
-                return null;
-            }
-
-            Object obj = SingleFactory.getInstance(serverParam.getImplClass());
+            Object obj = SingleFactory.getInstance(Class.forName(request.getInterfaceClass()));
             if(obj==null){
                 return null;
             }

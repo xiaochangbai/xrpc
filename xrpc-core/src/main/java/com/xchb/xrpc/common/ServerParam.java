@@ -1,6 +1,8 @@
 package com.xchb.xrpc.common;
 
+import com.xchb.xrpc.config.XrpcConfigProperties;
 import com.xchb.xrpc.util.IpUtils;
+import com.xchb.xrpc.util.SingleFactory;
 import lombok.Builder;
 import lombok.Data;
 
@@ -20,7 +22,6 @@ public class ServerParam<T> implements Serializable {
 
     private final static Long serialVersionUID = 1L;
 
-
     //服务版本
     private String version;
 
@@ -30,32 +31,32 @@ public class ServerParam<T> implements Serializable {
     //服务ip
     private String ip;
 
+    //服务端口号
+    private Integer port;
+
     //服务接口
-    private Class<T> interfaceClass;
+    private String interfaceClassStr;
 
     //服务实现
-    private Class<?> implClass;
+    private String implClassStr;
 
     /**
      * 获取服务名称
      * @return
      */
     public String serverName(){
-        return ServerParam.buildServerName(this.interfaceClass.getCanonicalName(), this.version, this.group);
+        return ServerParam.buildServerName(this.interfaceClassStr, this.version, this.group);
     }
-
-
 
 
     public static ServerParam buildServer(Class<?> interfaceClass,Class<?> implClass,
                                                  String version,String group){
-        return new ServerParam(version, group, IpUtils.localIP(), interfaceClass, implClass);
+        return new ServerParam(version, group, IpUtils.localIP(),0, interfaceClass.getName(), implClass.getName());
     }
 
     public static ServerParam buildRequet(Class<?> interfaceClass,String group,String version){
-        return new ServerParam(version, group, null, interfaceClass, null);
+        return new ServerParam(version, group, null,null, interfaceClass.getName(), null);
     }
-
 
 
 
@@ -71,5 +72,21 @@ public class ServerParam<T> implements Serializable {
     }
 
 
+    public Class<?> getInterfaceClass() {
+        try {
+            return Class.forName(this.interfaceClassStr);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
+    public Class<?> getImplClass() {
+        try {
+            return Class.forName(this.implClassStr);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

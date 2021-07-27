@@ -50,8 +50,6 @@ public class ServerBooter {
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
                         ChannelPipeline pipeline = socketChannel.pipeline();
-//                        pipeline.addLast("encode",new RpcCustomEncode(RpcResponse.class))
-//                                .addLast("decode",new RpcCustomDecode(RpcRequest.class))
                         pipeline.addLast(new ProtobufVarint32FrameDecoder())
                                 .addLast(new ProtobufDecoder(RpcRequestProto.RpcRequest.getDefaultInstance()))
                                 .addLast(new ProtobufVarint32LengthFieldPrepender())
@@ -65,7 +63,7 @@ public class ServerBooter {
 
     public void start(int port) throws InterruptedException {
         bootstrap.bind(port).sync();
-        log.info("服务器启动完成,port: {}", AppConst.SERVER_PORT);
+        log.info("服务器启动完成,port: {}", port);
     }
 
     public void shutdown(){

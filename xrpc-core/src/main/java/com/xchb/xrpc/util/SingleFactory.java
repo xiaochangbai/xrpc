@@ -19,9 +19,13 @@ public class SingleFactory {
     private final static Map<String, Object> MAPS = new HashMap<>();
 
 
+    public static <T> void set(Class<T> tClass, T t){
+        MAPS.put(tClass.getName(),t);
+    }
+
     public static <T> T getInstance(Class<T> aClass) {
         try {
-            String key = aClass.toString();
+            String key = aClass.getName();
             Object instance = MAPS.get(key);
             if (instance == null) {
                 synchronized (aClass) {

@@ -5,6 +5,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.xchb.xrpc.common.ServerParam;
 import com.xchb.xrpc.common.proto.RpcRequestProto;
 import com.xchb.xrpc.common.proto.RpcResponseProto;
+import com.xchb.xrpc.config.XrpcConfigProperties;
+import com.xchb.xrpc.exceptions.ServerNotFindExeception;
+import com.xchb.xrpc.extension.ExtensionLoader;
+import com.xchb.xrpc.loadbalance.LoadBalance;
+import com.xchb.xrpc.register.ServerRegister;
 import com.xchb.xrpc.transport.client.ClientBooter;
 import com.xchb.xrpc.util.AppConst;
 import com.xchb.xrpc.util.ProtoBufUtils;
@@ -17,10 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -33,10 +35,19 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ClientProxy implements InvocationHandler {
 
+    private Class<ServerRegister> local;
+    private ServerRegister serverRegister;
+    Class<LoadBalance> algorithm;
+
     private ServerParam serverParam;
+
+    private XrpcConfigProperties xrpcConfigProperties = SingleFactory.getInstance(XrpcConfigProperties.class);
 
 
     public ClientProxy(ServerParam serverParam){
+        local = ExtensionLoader.get(ServerRegister.class, "zk");
+        serverRegister = SingleFactory.getInstance(local);
+        algorithm = ExtensionLoader.get(LoadBalance.class, "algorithm");;
         this.serverParam = serverParam;
     }
 
@@ -46,18 +57,34 @@ public class ClientProxy implements InvocationHandler {
 
         LinkedHashMap<String,String> paramInfo = ProtoBufUtils.buildString(method.getParameterTypes(),args);
 
+
+
+        String serverName = ServerParam.buildServerName(serverParam.getInterfaceClassStr(),
+                serverParam.getVersion(), serverParam.getGroup());
+        List<ServerParam> serverParams = serverRegister.find(serverName);
+        log.debug("发现服务列表：{}",serverParams);
+        if(serverParams==null || serverParams.size()<1){
+            throw new ServerNotFindExeception();
+        }
+
+        LoadBalance loadBalance = SingleFactory.getInstance(algorithm);
+        ServerParam serverParam = loadBalance.load(serverParams);
+        if(serverParam==null){
+            log.error("没有发现对应的服务: {}",serverName);
+            return null;
+        }
         RpcRequestProto.RpcRequest request = RpcRequestProto.RpcRequest
                 .newBuilder()
                 .setGroup(serverParam.getGroup())
                 .setVersion(serverParam.getVersion())
                 .setMethodName(method.getName())
                 .setId(IdUtil.simpleUUID())
-                .setInterfaceClass(serverParam.getInterfaceClass().getCanonicalName())
+                .setInterfaceClass(serverParam.getImplClassStr())
                 .putAllParamInfos(paramInfo)
                 .build();
 
         ClientBooter clientBooter = SingleFactory.getInstance(ClientBooter.class);
-        Channel channel = clientBooter.channel(new InetSocketAddress(AppConst.SERVER_IP, AppConst.SERVER_PORT));
+        Channel channel = clientBooter.channel(new InetSocketAddress(serverParam.getIp(),serverParam.getPort()));
         channel.writeAndFlush(request).addListener((ChannelFutureListener) future->{
             UnProcessRequest.put(request.getId(),completableFuture);
             if(future.isSuccess()){

@@ -1,3 +1,2 @@
 #server register and discover
-local=com.xchb.xrpc.register.impl.LocalServerRegister
 zk=com.xchb.xrpc.register.impl.ZkServerRegister

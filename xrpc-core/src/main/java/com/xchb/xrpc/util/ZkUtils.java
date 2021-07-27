@@ -24,21 +24,28 @@ public class ZkUtils {
 
     private CuratorFramework client;
 
-    public ZkUtils() throws Exception {
+
+    public ZkUtils(String zkAddr){
         //重试策略
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
 
-        this.client = CuratorFrameworkFactory.newClient(AppConst.ZK_CONNECTION_INFO, retryPolicy);
+        client = CuratorFrameworkFactory.newClient(zkAddr, retryPolicy);
         client.start();
-        Stat stat = client.checkExists().forPath(ROOT_PATH);
-        if(stat==null){
-            client.create().forPath(ROOT_PATH);
+        Stat stat = null;
+        try {
+            stat = client.checkExists().forPath(ROOT_PATH);
+            if(stat==null){
+                client.create().forPath(ROOT_PATH);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
+
     public boolean registerServer(String serverName,String value) {
         try {
-            return this.register(serverName, value.getBytes("UTF-8"));
+            return register(serverName, value.getBytes("UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -66,12 +73,12 @@ public class ZkUtils {
 
 
     public String findServer(String path) throws UnsupportedEncodingException {
-        byte[] bytes = this.find(path);
+        byte[] bytes = find(path);
         return new String(bytes,"UTF-8");
     }
 
     public byte[] find(String path) {
-        return this.findByPath(ROOT_PATH+"/"+path);
+        return findByPath(ROOT_PATH+"/"+path);
     }
 
     public List<String> findChildrens(String serverName) {
@@ -99,4 +106,5 @@ public class ZkUtils {
         }
         return null;
     }
+
 }

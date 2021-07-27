@@ -1,14 +1,18 @@
 package com.xchb.xrpc.register.impl;
 
+import com.xchb.xrpc.config.XrpcConfigProperties;
 import com.xchb.xrpc.register.ServerRegister;
 import com.xchb.xrpc.util.SingleFactory;
 import com.xchb.xrpc.common.ServerParam;
 import com.xchb.xrpc.util.ZkUtils;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author XDD
@@ -16,31 +20,40 @@ import java.util.List;
  * @date 2021/1/26
  * @description zookeeper服务注册.
  */
+@Slf4j
 public class ZkServerRegister implements ServerRegister {
 
 
-    private ZkUtils zkUtils = SingleFactory.getInstance(ZkUtils.class);
+
+    private Queue<ServerParam> taskQueue = new LinkedBlockingQueue<>();
 
     @Override
-    public boolean register(ServerParam serverParam) {
-        ObjectOutputStream oos = null;
-        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            String serverName = serverParam.serverName();
-            oos = new ObjectOutputStream(outputStream);
-            oos.writeObject(serverParam);
-            byte[] bytes = outputStream.toByteArray();
-            zkUtils.register(serverName, bytes);
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+    public boolean register() {
+        Integer exportPort = SingleFactory.getInstance(XrpcConfigProperties.class).getExportPort();
+        while (!taskQueue.isEmpty()){
+            ServerParam serverParam = taskQueue.poll();
+            serverParam.setPort(exportPort);
+            ObjectOutputStream oos = null;
+            try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+                String serverName = serverParam.serverName();
+                oos = new ObjectOutputStream(outputStream);
+                oos.writeObject(serverParam);
+                byte[] bytes = outputStream.toByteArray();
+                ZkUtils zkUtils = SingleFactory.getInstance(ZkUtils.class);
+                zkUtils.register(serverName, bytes);
+                log.info("服务注册成功：{}",serverParam);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+        return true;
     }
 
 
     @Override
     public List<ServerParam> find(String serverName) {
         List<ServerParam> result = new ArrayList<>();
+        ZkUtils zkUtils = SingleFactory.getInstance(ZkUtils.class);
         List<String> paths = zkUtils.findChildrens(serverName);
         if (paths == null || paths.size() < 1) {
             return result;
@@ -60,20 +73,10 @@ public class ZkServerRegister implements ServerRegister {
         return result;
     }
 
-    public static void main(String[] args) throws IOException {
-        ZkServerRegister zkServerRegister = new ZkServerRegister();
-        ServerParam server = ServerParam.buildServer(
-                ServerRegister.class, ZkServerRegister.class, "version1.0", "g1.0");
-        boolean isSuccess = zkServerRegister.register(server);
-        if (!isSuccess) {
-            System.out.println("服务注册失败");
-            return;
-        }
-        System.out.println("服务注册成功");
-
-        zkServerRegister = new ZkServerRegister();
-        List<ServerParam> serverParam = zkServerRegister.find(server.serverName());
-
-        System.out.println(serverParam);
+    @Override
+    public void put(ServerParam serverParam) {
+        taskQueue.offer(serverParam);
     }
+
+
 }

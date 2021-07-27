@@ -56,11 +56,9 @@ public class SpringBeanPostProcess implements BeanPostProcessor {
             Class<?> interfaceClass = bean.getClass().getInterfaces()[0];
             ServerParam serverParam = ServerParam
                     .buildServer(interfaceClass,bean.getClass(),rpcService.version(),rpcService.group());
-            if(serverRegister.register(serverParam)){
-                log.debug("服务注册成功[{}]",serverParam.serverName());
-            }else{
-                log.error("服务注册失败[{}]",serverParam.serverName());
-            }
+            //加入任务队列
+            serverRegister.put(serverParam);
+            log.info("加入等待任务成功：{}",serverParam);
         }
         return bean;
     }

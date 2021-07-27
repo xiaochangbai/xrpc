@@ -7,6 +7,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.xchb.xrpc.register.annotation.RpcScan;
 import com.xchb.xrpc.transport.server.ServerBooter;
 
+import java.io.IOException;
+
 
 /**
  * @author XDD
@@ -15,15 +17,15 @@ import com.xchb.xrpc.transport.server.ServerBooter;
  * @description Good Good Study,Day Day Up.
  */
 @Slf4j
-@RpcScan(basePackage = {"com.xchb.xrpc.demo.service"})
+@RpcScan(basePackage = {"com.xchb.xrpc.demo"})
 public class MainServerApplication {
 
-    public static void main(String[] args) throws InterruptedException {
-        //启动netty服务
-        new ServerBooter().start(AppConst.SERVER_PORT);
+    public static void main(String[] args) throws InterruptedException, IOException {
         //加载spring容器
         ApplicationContext applicationContext =
                 new AnnotationConfigApplicationContext(MainServerApplication.class);
+
+        System.in.read();
     }
 
 }

@@ -1,7 +1,6 @@
 package com.xchb.xrpc.config;
 
 import lombok.Data;
-import lombok.NonNull;
 
 /**
  * @author XDD

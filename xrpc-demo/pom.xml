@@ -17,6 +17,7 @@
         <module>server-api</module>
         <module>client-exmple</module>
     </modules>
+    <packaging>pom</packaging>
 
     <properties>
         <xrpc.demo.versin>1.0-SNAPSHOT</xrpc.demo.versin>
@@ -24,6 +25,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>2.4.8</version>
+            </dependency>
             <dependency>
                 <groupId>com.xchb</groupId>
                 <artifactId>server-exmple</artifactId>
@@ -46,6 +52,12 @@
                 <groupId>com.xchb</groupId>
                 <artifactId>xrpc-core</artifactId>
                 <version>${xrpc.versin}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-context</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>

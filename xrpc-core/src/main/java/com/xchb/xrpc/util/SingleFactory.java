@@ -32,6 +32,10 @@ public class SingleFactory {
                     if (instance == null) {
                         instance = aClass.getDeclaredConstructor().newInstance();
                         MAPS.put(key, instance);
+                        Class<?>[] interfaces = aClass.getInterfaces();
+                        for(Class<?> iClass:interfaces){
+                            MAPS.put(iClass.getName(),instance);
+                        }
                     }
                 }
             }

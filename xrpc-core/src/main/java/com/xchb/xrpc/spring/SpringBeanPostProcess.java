@@ -12,7 +12,6 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 
@@ -22,13 +21,11 @@ import java.lang.reflect.Field;
  * @date 2021/1/18
  * @description Good Good Study,Day Day Up.
  */
-@Component
 @Slf4j
 public class SpringBeanPostProcess implements BeanPostProcessor {
 
 
     private ServerRegister serverRegister;
-
 
 
     public SpringBeanPostProcess(){
@@ -38,8 +35,8 @@ public class SpringBeanPostProcess implements BeanPostProcessor {
             throw new BaseException(500,"注册服务不可用");
         }
         serverRegister = SingleFactory.getInstance(local);
+        log.info("服务注册器初始化完成:{}",ServerRegister.class.getSimpleName());
     }
-
 
     /**
      * bean初始化
@@ -58,7 +55,6 @@ public class SpringBeanPostProcess implements BeanPostProcessor {
                     .buildServer(interfaceClass,bean.getClass(),rpcService.version(),rpcService.group());
             //加入任务队列
             serverRegister.put(serverParam);
-            log.info("加入等待任务成功：{}",serverParam);
         }
         return bean;
     }
@@ -95,4 +91,5 @@ public class SpringBeanPostProcess implements BeanPostProcessor {
 
         return bean;
     }
+
 }

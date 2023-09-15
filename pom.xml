@@ -23,7 +23,6 @@
         <kryo.version>4.0.0</kryo.version>
         <logback.version>1.2.3</logback.version>
         <xrpc.versin>1.0-SNAPSHOT</xrpc.versin>
-        <spring.version>5.2.7.RELEASE</spring.version>
     </properties>
 
 
@@ -90,13 +89,6 @@
                 <version>${xrpc.versin}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-
-
         </dependencies>
     </dependencyManagement>
 
@@ -113,5 +105,22 @@
             <url>https://maven.aliyun.com/repository/public</url>
         </repository>
     </repositories>
+
+
+
+    <profiles>
+        <profile>
+            <id>jdk-1.8</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <jdk>1.8</jdk>
+            </activation>
+            <properties>
+                <maven.compiler.source>1.8</maven.compiler.source>
+                <maven.compiler.target>1.8</maven.compiler.target>
+                <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

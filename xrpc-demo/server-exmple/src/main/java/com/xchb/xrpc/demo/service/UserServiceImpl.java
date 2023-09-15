@@ -1,8 +1,8 @@
 package com.xchb.xrpc.demo.service;
 
 import cn.hutool.core.lang.Assert;
-import com.xchb.xrpc.entity.User;
 import com.xchb.xrpc.api.UserService;
+import com.xchb.xrpc.entity.User;
 import com.xchb.xrpc.register.annotation.RpcService;
 
 import java.util.Map;

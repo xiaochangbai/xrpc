@@ -10,8 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>server-exmple</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.xchb</groupId>
             <artifactId>server-api</artifactId>

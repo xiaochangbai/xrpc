@@ -1,9 +1,9 @@
 package com.xchb.xrpc.api;
 
 import cn.hutool.core.util.IdUtil;
-import org.springframework.stereotype.Controller;
 import com.xchb.xrpc.entity.User;
 import com.xchb.xrpc.register.annotation.RpcReference;
+import org.springframework.stereotype.Controller;
 
 /**
  * @author XDD

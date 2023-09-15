@@ -1,7 +1,7 @@
 package com.xchb.xrpc.transport.server;
 
 import com.xchb.xrpc.common.proto.RpcRequestProto;
-import com.xchb.xrpc.util.AppConst;
+import com.xchb.xrpc.transport.server.handler.ServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.ChannelInitializer;
@@ -18,8 +18,6 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
-
-import com.xchb.xrpc.transport.server.handler.ServerHandler;
 
 import java.util.concurrent.TimeUnit;
 

@@ -1,8 +1,6 @@
 package com.xchb.xrpc.common;
 
-import com.xchb.xrpc.config.XrpcConfigProperties;
 import com.xchb.xrpc.util.IpUtils;
-import com.xchb.xrpc.util.SingleFactory;
 import lombok.Builder;
 import lombok.Data;
 

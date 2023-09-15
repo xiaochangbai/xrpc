@@ -1,7 +1,7 @@
 package com.xchb.xrpc.register.annotation;
 
-import org.springframework.context.annotation.Import;
 import com.xchb.xrpc.spring.CustomBeanRegistrar;
+import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
@@ -16,7 +16,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Documented
 @Import(CustomBeanRegistrar.class)
-public @interface RpcScan {
+public @interface EnableXRpc {
 
     String[] basePackage();
 

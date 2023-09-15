@@ -1,7 +1,7 @@
 package com.xchb.xrpc.extension;
 
-import lombok.extern.slf4j.Slf4j;
 import com.xchb.xrpc.register.ServerRegister;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.IOException;

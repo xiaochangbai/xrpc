@@ -1,7 +1,7 @@
 package com.xchb.xrpc;
 
+import com.xchb.xrpc.register.annotation.EnableXRpc;
 import org.springframework.boot.SpringApplication;
-import com.xchb.xrpc.register.annotation.RpcScan;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @description Good Good Study,Day Day Up.
  */
 @SpringBootApplication
-@RpcScan(basePackage = "com.xchb.xrpc")
+@EnableXRpc(basePackage = "com.xchb.xrpc")
 public class MainClientApplication {
 
     public static void main(String[] args) {

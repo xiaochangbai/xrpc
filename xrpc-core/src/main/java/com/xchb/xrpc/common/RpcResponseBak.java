@@ -1,6 +1,5 @@
 package com.xchb.xrpc.common;
 
-import com.xchb.xrpc.common.proto.RpcResponseProto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

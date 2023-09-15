@@ -1,15 +1,14 @@
 package com.xchb.xrpc.register.impl;
 
-import com.xchb.xrpc.config.XrpcConfigProperties;
+import com.xchb.xrpc.common.AppConst;
+import com.xchb.xrpc.common.ServerParam;
 import com.xchb.xrpc.register.ServerRegister;
 import com.xchb.xrpc.util.SingleFactory;
-import com.xchb.xrpc.common.ServerParam;
 import com.xchb.xrpc.util.ZkUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -29,10 +28,9 @@ public class ZkServerRegister implements ServerRegister {
 
     @Override
     public boolean register() {
-        Integer exportPort = SingleFactory.getInstance(XrpcConfigProperties.class).getExportPort();
         while (!taskQueue.isEmpty()){
             ServerParam serverParam = taskQueue.poll();
-            serverParam.setPort(exportPort);
+            serverParam.setPort(AppConst.exportPort);
             ObjectOutputStream oos = null;
             try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
                 String serverName = serverParam.serverName();
@@ -76,6 +74,11 @@ public class ZkServerRegister implements ServerRegister {
     @Override
     public void put(ServerParam serverParam) {
         taskQueue.offer(serverParam);
+    }
+
+    @Override
+    public Integer serverCount() {
+        return taskQueue.size();
     }
 
 

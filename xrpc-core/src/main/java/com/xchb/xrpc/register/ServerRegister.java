@@ -1,7 +1,7 @@
 package com.xchb.xrpc.register;
 
-import com.xchb.xrpc.extension.SPI;
 import com.xchb.xrpc.common.ServerParam;
+import com.xchb.xrpc.extension.SPI;
 
 import java.util.List;
 
@@ -21,6 +21,18 @@ public interface ServerRegister {
      */
     boolean register() ;
 
+    /**
+     * 添加服务
+     * @param serverParam
+     */
+    void put(ServerParam serverParam);
+
+
+    /**
+     * 服务数量
+     * @return
+     */
+    Integer serverCount();
 
 
     /**
@@ -29,6 +41,4 @@ public interface ServerRegister {
      * @return
      */
     List<ServerParam> find(String serverName);
-
-    void put(ServerParam serverParam);
 }

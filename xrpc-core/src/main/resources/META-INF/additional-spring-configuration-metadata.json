@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "app.exportPort",
+      "type": "java.lang.Integer",
+      "description": "export port"
+    },
+    {
+      "name": "app.zkAddr",
+      "type": "java.lang.String",
+      "description": "zookeeper address."
+    }
+  ]
+}

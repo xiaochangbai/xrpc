@@ -1,17 +1,14 @@
 package com.xchb.xrpc.proxy;
 
 import cn.hutool.core.util.IdUtil;
-import com.alibaba.fastjson.JSONObject;
 import com.xchb.xrpc.common.ServerParam;
 import com.xchb.xrpc.common.proto.RpcRequestProto;
 import com.xchb.xrpc.common.proto.RpcResponseProto;
-import com.xchb.xrpc.config.XrpcConfigProperties;
 import com.xchb.xrpc.exceptions.ServerNotFindExeception;
 import com.xchb.xrpc.extension.ExtensionLoader;
 import com.xchb.xrpc.loadbalance.LoadBalance;
 import com.xchb.xrpc.register.ServerRegister;
 import com.xchb.xrpc.transport.client.ClientBooter;
-import com.xchb.xrpc.util.AppConst;
 import com.xchb.xrpc.util.ProtoBufUtils;
 import com.xchb.xrpc.util.SingleFactory;
 import com.xchb.xrpc.util.UnProcessRequest;
@@ -22,9 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 /**
  * @author XDD
@@ -40,8 +37,6 @@ public class ClientProxy implements InvocationHandler {
     Class<LoadBalance> algorithm;
 
     private ServerParam serverParam;
-
-    private XrpcConfigProperties xrpcConfigProperties = SingleFactory.getInstance(XrpcConfigProperties.class);
 
 
     public ClientProxy(ServerParam serverParam){
